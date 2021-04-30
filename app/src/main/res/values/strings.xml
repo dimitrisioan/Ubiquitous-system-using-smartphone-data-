@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">UbiTrack</string>
+    <string name="todo">TODO</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="recruiting_team">Recruiting Team</string>
+    <string name="male">Male</string>
+    <string name="other">Other</string>
+    <string name="female">Female</string>
+    <string name="not_disclosed">Not disclosed</string>
+    <string name="what_s_your_gender">What\'s your gender?</string>
+</resources>
