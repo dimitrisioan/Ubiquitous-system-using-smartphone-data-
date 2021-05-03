@@ -51,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
                 //Check conditions
                 switch (item.getId()) {
                     case 1:
-                        //Home selected
+                        //Statistics selected
                         fragment = new StatisticsFragment();
                         break;
                     case 2:
-                        //Statistics selected
+                        //Home selected
                         fragment = new HomeFragment();
                         break;
                     case 3:
+                        //Settings Selected
                         fragment = new SettingsFragment();
                         break;
                 }
