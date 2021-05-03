@@ -10,7 +10,7 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static boolean isPhoneRegisted = true;
+    public static boolean isPhoneRegisted = !true;
 
     //Initilize variable
     MeowBottomNavigation bottomNavigation;
@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getId()) {
                     case 1:
                         //Home selected
-                        fragment = new HomeFragment();
+                        fragment = new StatisticsFragment();
                         break;
                     case 2:
                         //Statistics selected
-                        fragment = new StatisticsFragment();
+                        fragment = new HomeFragment();
                         break;
                     case 3:
                         fragment = new SettingsFragment();

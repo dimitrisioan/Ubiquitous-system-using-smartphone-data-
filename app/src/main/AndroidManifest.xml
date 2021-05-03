@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UbiTrack">
         <activity android:name=".WelcomePage" />
-        <activity android:name=".activity_get_started_3" />
-        <activity android:name=".activity_get_started_2" />
+        <activity android:name=".SecondRegisterPage" />
+        <activity android:name=".FirstRegisterPage" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

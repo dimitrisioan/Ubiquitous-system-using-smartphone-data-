@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class activity_get_started_3 extends AppCompatActivity {
+public class SecondRegisterPage extends AppCompatActivity {
     private Button button2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

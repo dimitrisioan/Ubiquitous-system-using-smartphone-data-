@@ -24,7 +24,7 @@ public class WelcomePage extends AppCompatActivity {
         });
     }
     public void openActivity2(){
-        Intent intent = new Intent(this, activity_get_started_2.class);
+        Intent intent = new Intent(this, FirstRegisterPage.class);
         startActivity(intent);
     }
 }

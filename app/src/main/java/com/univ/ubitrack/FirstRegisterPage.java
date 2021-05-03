@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-public class activity_get_started_2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class FirstRegisterPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private Button button2;
     private Spinner spinner;
     private Spinner spinner2;
@@ -41,7 +41,7 @@ public class activity_get_started_2 extends AppCompatActivity implements Adapter
         });
     }
     public void openActivity3(){
-        Intent intent = new Intent(this, activity_get_started_3.class);
+        Intent intent = new Intent(this, SecondRegisterPage.class);
         startActivity(intent);
     }
 
