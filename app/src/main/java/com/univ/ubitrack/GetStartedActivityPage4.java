@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
-public class activity_get_started_4 extends AppCompatActivity {
+public class GetStartedActivityPage4 extends AppCompatActivity {
     //Initilize variable
     MeowBottomNavigation bottomNavigation;
 

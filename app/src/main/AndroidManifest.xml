@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UbiTrack">
-        <activity android:name=".activity_get_started_4"></activity>
+        <activity android:name=".GetStartedActivityPage4" />
+        <activity android:name=".GetStartedActivityPage1" />
         <activity android:name=".activity_get_started_3" />
         <activity android:name=".activity_get_started_2" />
-        <activity android:name=".GetStartedActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

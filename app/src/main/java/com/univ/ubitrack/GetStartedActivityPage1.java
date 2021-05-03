@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class GetStartedActivity extends AppCompatActivity {
+public class GetStartedActivityPage1 extends AppCompatActivity {
     private Button button1;
 
     @Override
