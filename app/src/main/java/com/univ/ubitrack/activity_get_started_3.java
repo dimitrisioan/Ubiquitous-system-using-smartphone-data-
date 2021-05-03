@@ -22,7 +22,8 @@ public class activity_get_started_3 extends AppCompatActivity {
         });
     }
     public void openActivity4(){
-        Intent intent = new Intent(this, GetStartedActivityPage4.class);
+        MainActivity.isPhoneRegisted = !MainActivity.isPhoneRegisted;
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }

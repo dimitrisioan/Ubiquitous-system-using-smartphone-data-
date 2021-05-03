@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UbiTrack">
-        <activity android:name=".GetStartedActivityPage4" />
-        <activity android:name=".GetStartedActivityPage1" />
+        <activity android:name=".WelcomePage" />
         <activity android:name=".activity_get_started_3" />
         <activity android:name=".activity_get_started_2" />
         <activity android:name=".MainActivity">
