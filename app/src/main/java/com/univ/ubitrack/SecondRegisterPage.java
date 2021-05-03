@@ -12,7 +12,7 @@ public class SecondRegisterPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_started_3);
+        setContentView(R.layout.activity_second_register_page);
         button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener(){
             @Override

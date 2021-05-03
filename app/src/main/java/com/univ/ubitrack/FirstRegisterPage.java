@@ -10,44 +10,45 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-public class FirstRegisterPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    private Button button2;
-    private Spinner spinner;
-    private Spinner spinner2;
+public class FirstRegisterPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    Spinner sp_recruited_team;
+    Spinner sp_age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_started_2);
+        setContentView(R.layout.activity_first_register_page);
 
-        spinner = findViewById(R.id.spinner);
+        sp_recruited_team = findViewById(R.id.sp_recruited_team);
         String[] recruitingItems = getResources().getStringArray(R.array.recruiting_items);
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,recruitingItems);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, recruitingItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        sp_recruited_team.setAdapter(adapter);
 
-        spinner2 = findViewById(R.id.spinner2);
+        sp_age = findViewById(R.id.sp_age);
         String[] age_items = getResources().getStringArray(R.array.age_items);
-        ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item,age_items);
+        ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, age_items);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
+        sp_age.setAdapter(adapter2);
 
-        button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener(){
+        Button first_next_btn = (Button) findViewById(R.id.first_next_btn);
+        first_next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity3();
+                goToSecondRegisterPage();
             }
         });
     }
-    public void openActivity3(){
+
+    public void goToSecondRegisterPage() {
         Intent intent = new Intent(this, SecondRegisterPage.class);
         startActivity(intent);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(parent.getId() == R.id.spinner){
+        if (parent.getId() == R.id.spinner) {
             String valueFromSpinner = parent.getItemAtPosition(position).toString();
         }
     }

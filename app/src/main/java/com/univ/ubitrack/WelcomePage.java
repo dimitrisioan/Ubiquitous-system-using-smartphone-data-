@@ -8,22 +8,22 @@ import android.view.View;
 import android.widget.Button;
 
 public class WelcomePage extends AppCompatActivity {
-    private Button button1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_started);
+        setContentView(R.layout.activity_welcome_page);
 
-        button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener(){
+        Button get_started_btn = (Button) findViewById(R.id.get_started_btn);
+        get_started_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity2();
+                goToFirstRegisterPage();
             }
         });
     }
-    public void openActivity2(){
+
+    public void goToFirstRegisterPage() {
         Intent intent = new Intent(this, FirstRegisterPage.class);
         startActivity(intent);
     }

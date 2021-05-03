@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo_ubitrack_big"
         android:layout_width="173dp"
         android:layout_height="139dp"
         android:layout_marginTop="16dp"
@@ -23,7 +23,7 @@
         tools:srcCompat="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tv_recruited_team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/sp_recruited_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -55,7 +55,7 @@
 
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/sp_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -89,7 +89,7 @@
 
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/first_next_btn"
         android:layout_width="122dp"
         android:layout_height="48dp"
         android:layout_gravity="right"
