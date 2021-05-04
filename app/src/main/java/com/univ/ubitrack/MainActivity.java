@@ -1,33 +1,60 @@
 package com.univ.ubitrack;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static boolean isPhoneRegisted = !true;
+    public static boolean isPhoneRegistered = true;
+    Intent serviceIntent = null;
+    public static int debugging = 1;
 
     //Initilize variable
     MeowBottomNavigation bottomNavigation;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (isPhoneRegisted) {
+        if (isPhoneRegistered) {
             applicationFragments();
+            startAEScreenOnOffService();
         }else{
             goToGetStarted();
         }
     }
 
-    public void goToGetStarted(){
+    private void startAEScreenOnOffService(){
+        Context context = getApplicationContext();
+        if (serviceIntent == null) {
+            serviceIntent = new Intent(context, AEScreenOnOffService.class);
+            startService(serviceIntent);
+        }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                context.startService(serviceIntent);
+////                startActivity(serviceIntent);
+//            }else{
+//                startService(serviceIntent);
+//            }
+
+    }
+
+    private void goToGetStarted(){
         Intent intent = new Intent(this, WelcomePage.class);
         startActivity(intent);
     }
@@ -68,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        bottomNavigation.show(1,true);
+        bottomNavigation.show(2,true);
         bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {

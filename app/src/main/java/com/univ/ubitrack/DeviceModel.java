@@ -7,13 +7,15 @@ public class DeviceModel {
     private String ageRange;
     private String gender;
     private String device_id;
+    private int isDeviseRegistered;
 
-    public DeviceModel(int id, int recruitedTeam, String ageRange, String gender, String device_id) {
+    public DeviceModel(int id, int recruitedTeam, String ageRange, String gender, String device_id, int isDeviseRegistered) {
         this.id = id;
         this.recruitedTeam = recruitedTeam;
         this.ageRange = ageRange;
         this.gender = gender;
         this.device_id = device_id;
+        this.isDeviseRegistered = isDeviseRegistered;
     }
 
     public DeviceModel(){
@@ -28,6 +30,7 @@ public class DeviceModel {
                 ", ageRange='" + ageRange + '\'' +
                 ", gender='" + gender + '\'' +
                 ", device_id='" + device_id + '\'' +
+                ", isDeviseRegistered='" + isDeviseRegistered + '\'' +
                 '}';
     }
 
@@ -45,6 +48,10 @@ public class DeviceModel {
 
     public void setRecruitedTeam(int recruitedTeam) {
         this.recruitedTeam = recruitedTeam;
+    }
+
+    public void setIsDeviseRegistered(int isDeviseRegistered) {
+        this.isDeviseRegistered = isDeviseRegistered;
     }
 
     public String getAgeRange() {
@@ -69,5 +76,9 @@ public class DeviceModel {
 
     public void setDevice_id(String device_id) {
         this.device_id = device_id;
+    }
+
+    public int getIsDeviseRegistered() {
+        return isDeviseRegistered;
     }
 }

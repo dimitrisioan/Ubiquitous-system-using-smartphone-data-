@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 
 public class SecondRegisterPage extends AppCompatActivity {
+
     private Button button2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +24,7 @@ public class SecondRegisterPage extends AppCompatActivity {
         });
     }
     public void openActivity4(){
-        MainActivity.isPhoneRegisted = !MainActivity.isPhoneRegisted;
+        MainActivity.isPhoneRegistered = !MainActivity.isPhoneRegistered;
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 

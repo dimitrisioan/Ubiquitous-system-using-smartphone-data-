@@ -32,7 +32,7 @@ public class FirstRegisterPage extends AppCompatActivity implements AdapterView.
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_age.setAdapter(adapter2);
 
-        Button first_next_btn = (Button) findViewById(R.id.first_next_btn);
+        Button first_next_btn = (Button) findViewById(R.id.first_next_btn );
         first_next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
