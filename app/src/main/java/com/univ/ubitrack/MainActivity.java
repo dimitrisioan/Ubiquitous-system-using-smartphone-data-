@@ -45,13 +45,6 @@ public class MainActivity extends AppCompatActivity {
             serviceIntent = new Intent(context, AEScreenOnOffService.class);
             startService(serviceIntent);
         }
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                context.startService(serviceIntent);
-////                startActivity(serviceIntent);
-//            }else{
-//                startService(serviceIntent);
-//            }
-
     }
 
     private void goToGetStarted(){

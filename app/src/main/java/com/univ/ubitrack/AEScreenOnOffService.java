@@ -38,23 +38,19 @@ public class AEScreenOnOffService extends Service {
 
     @Override
     public void onStart(Intent intent, int startId) {
-
         boolean screenOn = false;
 
         try{
             // Get ON/OFF values sent from receiver ( AEScreenOnOffReceiver.java )
             screenOn = intent.getBooleanExtra("screen_state", false);
 
-        }catch(Exception e){}
+        }catch(Exception e){
+            Toast.makeText(getBaseContext(), "An error occured", Toast.LENGTH_SHORT).show();
+        }
 
-        //  Toast.makeText(getBaseContext(), "Service on start :"+screenOn,
-        //Toast.LENGTH_SHORT).show();
         if(screenOn != previousScreenState) {
             previousScreenState = !previousScreenState;
             if (!screenOn) {
-//                previousScreenState = screenOn;
-                // your code here
-                // Some time required to start any service
                 //            Toast.makeText(getBaseContext(), "Screen on, ", Toast.LENGTH_SHORT).show();\
                 Context context = getApplicationContext();
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
@@ -64,8 +60,6 @@ public class AEScreenOnOffService extends Service {
                 Log.i("Screen State", "Screen is on");
 
             } else {
-                // your code here
-                // Some time required to stop any service to save battery consumption
                 //            Toast.makeText(getBaseContext(), "Screen off,", Toast.LENGTH_SHORT).show();
                 Context context = getApplicationContext();
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
