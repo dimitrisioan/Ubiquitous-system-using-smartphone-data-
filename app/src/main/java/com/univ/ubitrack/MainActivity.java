@@ -21,7 +21,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static boolean isPhoneRegistered = false;
+    public static int isPhoneRegistered = -1;
     Intent serviceIntent = null;
     public static int debugging = 1;
 
@@ -31,16 +31,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         DBHelper dbHelper = new DBHelper(MainActivity.this);
-        if (isPhoneRegistered) {
+        DeviceModel devise = (DeviceModel) dbHelper.getDevise();
+        if (devise != null) {
+            isPhoneRegistered = devise.getIsDeviseRegistered();
+        }
+
+        if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
         }else{
             goToGetStarted();
         }
-//        DeviceModel deviceModel = new DeviceModel(-1, 8, "18-25", "male", "devise_8_1", 0);
-//        boolean success = dbHelper.addDevise(deviceModel);
-//        Log.i("DB", String.valueOf(success));
     }
 
     private void startAEScreenOnOffService(){

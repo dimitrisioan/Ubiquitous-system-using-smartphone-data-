@@ -39,7 +39,7 @@
         app:layout_constraintVertical_bias="0.133" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/genderRadioGroup"
         android:layout_width="141dp"
         android:layout_height="212dp"
         android:layout_gravity="center"
