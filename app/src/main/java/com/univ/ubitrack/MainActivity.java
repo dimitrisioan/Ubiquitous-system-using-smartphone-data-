@@ -1,6 +1,7 @@
 package com.univ.ubitrack;
 
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -20,7 +21,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static boolean isPhoneRegistered = true;
+    public static boolean isPhoneRegistered = false;
     Intent serviceIntent = null;
     public static int debugging = 1;
 
@@ -30,19 +31,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        DBHelper dbHelper = new DBHelper(MainActivity.this);
         if (isPhoneRegistered) {
             applicationFragments();
             startAEScreenOnOffService();
         }else{
             goToGetStarted();
         }
+//        DeviceModel deviceModel = new DeviceModel(-1, 8, "18-25", "male", "devise_8_1", 0);
+//        boolean success = dbHelper.addDevise(deviceModel);
+//        Log.i("DB", String.valueOf(success));
     }
 
     private void startAEScreenOnOffService(){
-        Context context = getApplicationContext();
+//        Context context = getApplicationContext();
         if (serviceIntent == null) {
-            serviceIntent = new Intent(context, AEScreenOnOffService.class);
+            serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
             startService(serviceIntent);
         }
     }

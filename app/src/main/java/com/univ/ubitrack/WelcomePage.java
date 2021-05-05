@@ -18,6 +18,7 @@ public class WelcomePage extends AppCompatActivity {
         get_started_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 goToFirstRegisterPage();
             }
         });
