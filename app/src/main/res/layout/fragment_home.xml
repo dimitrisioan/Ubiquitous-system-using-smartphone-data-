@@ -12,11 +12,9 @@
     <androidx.appcompat.widget.SwitchCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textOff="off"
-        android:textOn="on"
         android:thumb="@drawable/thumb"
         app:showText="true"
-        app:track="@drawable/track" />
+        app:track="@drawable/track"/>
 
 </LinearLayout>
 

@@ -94,17 +94,19 @@ public class MainActivity extends AppCompatActivity {
                 //Initialize fragment
                 Fragment fragment = null;
                 //Check conditions
-                switch (item.getId()) {
-                    case 1:
-                        //Statistics selected
-                        fragment = new StatisticsFragment();
-                        break;
-                    case 2:
-                        //Home selected
-                        fragment = new HomeFragment();
-                        break;
-                    case 3:
-                        //Settings Selected
+                if (item.getId() == 1){
+                    //Statistics selected
+                    fragment = new StatisticsFragment();
+                }
+                if (item.getId() == 2){
+                    //Home selected
+                    fragment = new HomeFragment();
+                }
+                if (item.getId() == 3){
+                    //Settings Selected
+                    fragment = new SettingsFragment();
+                }
+
                         Bundle settingsBundle = new Bundle();
                         if (device.getIsDeviseRegistered() == 1){
                             settingsBundle.putString("recruitedTeam", String.valueOf(device.getRecruitedTeam()));
@@ -112,10 +114,9 @@ public class MainActivity extends AppCompatActivity {
                             settingsBundle.putString("gender", capitalize(device.getGender()));
                             settingsBundle.putString("deviceId", String.valueOf(device.getDevice_id()));
                         }
-                        fragment = new SettingsFragment();
+
                         fragment.setArguments(settingsBundle);
-                        break;
-                }
+                        
                 //Load fragments
                 loadFragment(fragment);
 
