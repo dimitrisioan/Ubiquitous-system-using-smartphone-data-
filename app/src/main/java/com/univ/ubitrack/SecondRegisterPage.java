@@ -21,7 +21,7 @@ public class SecondRegisterPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_second_register_page);
 
         Bundle bundle = getIntent().getExtras();
@@ -62,7 +62,7 @@ public class SecondRegisterPage extends AppCompatActivity {
     private boolean addDeviseToDB() {
         try {
             DBHelper dbHelper = new DBHelper(SecondRegisterPage.this);
-            DeviceModel deviceModel = new DeviceModel(-1, Integer.parseInt(recruitingTeam), ageRange, gender, "devise_" + recruitingTeam + "_1", 1);
+            DeviceModel deviceModel = new DeviceModel(-1, Integer.parseInt(recruitingTeam), ageRange, gender, "device_" + recruitingTeam + "_1", 1);
             dbHelper.deleteAllDevises();
             boolean success = dbHelper.addDevise(deviceModel);
             if (MainActivity.debugging == 1) {
