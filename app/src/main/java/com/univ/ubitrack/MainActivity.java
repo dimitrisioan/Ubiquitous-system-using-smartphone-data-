@@ -1,25 +1,22 @@
 package com.univ.ubitrack;
 
+import android.Manifest;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.service.notification.StatusBarNotification;
-import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
-import static androidx.core.content.ContextCompat.startActivity;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
+            startLocationService();
         }else{
             goToGetStarted();
             boolean isNotificationServiceRunning = isNotificationServiceRunning();
@@ -53,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
             }
         }
+    }
+
+    private void startLocationService() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
+        }
+        Context context = getApplicationContext();
+        LocationService locationSevice = new LocationService(context);
     }
 
     private boolean isNotificationServiceRunning() {
