@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
+    TextView tx_recruitedTeam, tx_ageRange, tx_gender, tx_deviceId;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +63,25 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        assert getArguments() != null;
+        String recruitedTeam = getArguments().getString("recruitedTeam");
+        String ageRange = getArguments().getString("ageRange");
+        String gender = getArguments().getString("gender");
+        String deviceId = getArguments().getString("deviceId");
+
+        tx_recruitedTeam = view.findViewById(R.id.tx_recruitedTeam);
+        tx_recruitedTeam.setText(String.valueOf(recruitedTeam));
+
+        tx_ageRange = view.findViewById(R.id.tx_ageRange);
+        tx_ageRange.setText(String.valueOf(ageRange));
+
+        tx_gender = view.findViewById(R.id.tx_gender);
+        tx_gender.setText(String.valueOf(gender));
+
+        tx_deviceId = view.findViewById(R.id.tx_deviceId);
+        tx_deviceId.setText(String.valueOf(deviceId));
+
+        return view;
     }
 }

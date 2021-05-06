@@ -12,6 +12,8 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.MissingFormatArgumentException;
+
 import static androidx.core.content.ContextCompat.startActivity;
 
 public class Notifications {
@@ -36,10 +38,12 @@ public class Notifications {
     public int showNotifications() {
         int count = 0;
         if (isNotificationServiceEnabled()) {
-            Log.i(TAG, "Notification enabled -- trying to fetch it");
+            if (MainActivity.debugging == 1)
+                Log.i(TAG, "Notification enabled -- trying to fetch it");
             count = getNotifications();
         } else {
-            Log.i(TAG, "Notification disabled -- Opening settings");
+            if (MainActivity.debugging == 1)
+                Log.i(TAG, "Notification disabled -- Opening settings");
             context.startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
         }
         return count;

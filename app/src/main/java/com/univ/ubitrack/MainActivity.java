@@ -1,6 +1,8 @@
 package com.univ.ubitrack;
 
+import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static int isPhoneRegistered = -1;
     Intent serviceIntent = null;
     public static int debugging = 1;
-
+    DeviceModel device;
     //Initilize variable
     MeowBottomNavigation bottomNavigation;
 
@@ -33,21 +35,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DBHelper dbHelper = new DBHelper(MainActivity.this);
-        DeviceModel devise = (DeviceModel) dbHelper.getDevise();
-        if (devise != null) {
-            isPhoneRegistered = devise.getIsDeviseRegistered();
+
+        device = (DeviceModel) dbHelper.getDevise();
+
+        if (device != null) {
+            isPhoneRegistered = device.getIsDeviseRegistered();
         }
+
 
         if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
         }else{
             goToGetStarted();
+            boolean isNotificationServiceRunning = isNotificationServiceRunning();
+            if(!isNotificationServiceRunning){
+                startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
+            }
         }
     }
 
+    private boolean isNotificationServiceRunning() {
+        ContentResolver contentResolver = getContentResolver();
+        String enabledNotificationListeners =
+                Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
+        String packageName = getPackageName();
+        return enabledNotificationListeners != null && enabledNotificationListeners.contains(packageName);
+    }
+
     private void startAEScreenOnOffService(){
-//        Context context = getApplicationContext();
+        Context context = getApplicationContext();
         if (serviceIntent == null) {
             serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
             startService(serviceIntent);
@@ -61,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void applicationFragments() {
         setContentView(R.layout.activity_get_started_4);
+//        this.getSupportActionBar().hide();
 
         //Assign variable
         bottomNavigation = findViewById(R.id.bottom_navigation);
@@ -87,7 +105,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         //Settings Selected
+                        Bundle settingsBundle = new Bundle();
+                        if (device.getIsDeviseRegistered() == 1){
+                            settingsBundle.putString("recruitedTeam", String.valueOf(device.getRecruitedTeam()));
+                            settingsBundle.putString("ageRange", String.valueOf(device.getAgeRange()));
+                            settingsBundle.putString("gender", capitalize(device.getGender()));
+                            settingsBundle.putString("deviceId", String.valueOf(device.getDevice_id()));
+                        }
                         fragment = new SettingsFragment();
+                        fragment.setArguments(settingsBundle);
                         break;
                 }
                 //Load fragments
@@ -110,5 +136,9 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.frame_layout,fragment)
                 .commit();
+    }
+
+    private String capitalize(final String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 }

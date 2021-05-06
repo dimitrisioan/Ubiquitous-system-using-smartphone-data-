@@ -12,6 +12,7 @@ public class WelcomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_welcome_page);
 
         Button get_started_btn = (Button) findViewById(R.id.get_started_btn);

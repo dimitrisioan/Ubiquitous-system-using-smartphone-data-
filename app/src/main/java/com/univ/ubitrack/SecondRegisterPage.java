@@ -21,6 +21,7 @@ public class SecondRegisterPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_second_register_page);
 
         Bundle bundle = getIntent().getExtras();

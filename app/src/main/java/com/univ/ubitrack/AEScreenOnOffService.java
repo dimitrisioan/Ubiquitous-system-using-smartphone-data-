@@ -51,22 +51,24 @@ public class AEScreenOnOffService extends Service {
         if(screenOn != previousScreenState) {
             previousScreenState = !previousScreenState;
             if (!screenOn) {
-                //            Toast.makeText(getBaseContext(), "Screen on, ", Toast.LENGTH_SHORT).show();\
                 Context context = getApplicationContext();
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager);
                 }
-                Log.i("Screen State", "Screen is on");
+                Toast.makeText(getBaseContext(), "Screen is on", Toast.LENGTH_SHORT).show();
+                if (MainActivity.debugging == 1)
+                    Log.i("Screen State", "Screen is on");
 
             } else {
-                //            Toast.makeText(getBaseContext(), "Screen off,", Toast.LENGTH_SHORT).show();
                 Context context = getApplicationContext();
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager);
                 }
-                Log.i("Screen State", "Screen is off");
+                Toast.makeText(getBaseContext(), "Screen is off", Toast.LENGTH_SHORT).show();
+                if (MainActivity.debugging == 1)
+                    Log.i("Screen State", "Screen is off");
             }
         }
     }
@@ -83,5 +85,6 @@ public class AEScreenOnOffService extends Service {
         Toast.makeText(getBaseContext(), "Service Destroyed", Toast.LENGTH_SHORT).show();
         if(mReceiver != null)
             unregisterReceiver(mReceiver);
+//        super.onDestroy();
     }
 }
