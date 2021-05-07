@@ -3,6 +3,7 @@ package com.univ.ubitrack;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FirstRegisterPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -36,6 +38,7 @@ public class FirstRegisterPage extends AppCompatActivity implements AdapterView.
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 RECRUITED_TEAM_SPINNER_DATA = adapterView.getItemAtPosition(i).toString();
+                ((TextView) view).setTextColor(Color.BLACK);
                 Log.i("Team", RECRUITED_TEAM_SPINNER_DATA);
             }
 
@@ -55,6 +58,7 @@ public class FirstRegisterPage extends AppCompatActivity implements AdapterView.
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 AGE_RANGE_SPINNER_DATA = adapterView.getItemAtPosition(i).toString();
+                ((TextView) view).setTextColor(Color.BLACK);
                 Log.i("Age", AGE_RANGE_SPINNER_DATA);
             }
 
