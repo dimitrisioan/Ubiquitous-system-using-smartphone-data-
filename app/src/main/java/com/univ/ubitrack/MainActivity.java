@@ -8,13 +8,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+
+import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -98,11 +102,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
                 //Initialize fragment
+
                 Fragment fragment = null;
                 //Check conditions
                 if (item.getId() == 1){
                     //Statistics selected
                     fragment = new StatisticsFragment();
+//                    FragmentManager fm = getSupportFragmentManager();
+//                    List<Fragment> fragments = fm.getFragments();
+//                    Fragment lastFragment = fragments.get(fragments.size() - 1);
+//                    Log.i("Last", String.valueOf(lastFragment));
                 }
                 if (item.getId() == 2){
                     //Home selected
@@ -132,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
-                //
+
             }
         });
     }

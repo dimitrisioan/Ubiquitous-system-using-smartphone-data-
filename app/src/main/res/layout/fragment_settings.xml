@@ -44,7 +44,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
+            android:background="#FFFFFF"
             android:text="@string/recruiting_team"
+            android:textColor="@color/settingFont"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -57,6 +59,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:text="8"
+            android:textColor="@color/settingFont"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -73,6 +76,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:text="@string/age_range"
+            android:textColor="@color/settingFont"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -85,6 +89,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:text="18-25"
+            android:textColor="@color/settingFont"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -101,6 +106,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:text="@string/gender"
+            android:textColor="@color/settingFont"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -113,6 +119,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:text="Male"
+            android:textColor="@color/settingFont"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -130,6 +137,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:text="@string/device_id"
+            android:textColor="@color/settingFont"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -142,6 +150,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:text="device_7_1"
+            android:textColor="@color/settingFont"
             android:textSize="18sp" />
     </LinearLayout>
 
