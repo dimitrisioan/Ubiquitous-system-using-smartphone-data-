@@ -2,6 +2,8 @@ package com.univ.ubitrack;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,42 +39,27 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_settings);
-
-        delete_btn = findViewById(R.id.delete_btn);
-
-        delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                creteAlertDialog();
-            }
-        });
     }
     private void creteAlertDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Are you sure you want to remove your device?");
-        builder.setPositiveButton("Yes",null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DBHelper dbHelper = new DBHelper(getContext());
+                dbHelper.deleteAllDevises();
+                goToGetStarted();
+            }
+        });
         builder.setNegativeButton("Cancel",null);
         builder.create();
         builder.show();
     }
 
-
-
-//        AlertDialog dialog = new AlertDialog.Builder(getActivity())
-//                .setTitle("Title")
-//                .setMessage("Are you sure you want to remove your device?")
-//                .setPositiveButton("Yes",null)
-//                .setNegativeButton("Cancel",null)
-//                .show();
-//        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-//        positiveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getActivity(), "NotClosing", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+    private void goToGetStarted(){
+        Intent intent = new Intent(getContext(), WelcomePage.class);
+        startActivity(intent);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +83,15 @@ public class SettingsFragment extends Fragment {
 
         tx_deviceId = view.findViewById(R.id.tx_deviceId);
         tx_deviceId.setText(String.valueOf(deviceId));
+
+        delete_btn = view.findViewById(R.id.delete_btn);
+
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                creteAlertDialog();
+            }
+        });
 
         return view;
     }

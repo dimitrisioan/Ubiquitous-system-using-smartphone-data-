@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
         }
         Context context = getApplicationContext();
-        //LocationService locationSevice = new LocationService(context);
+//        LocationService locationSevice = new LocationService(context);
     }
 
     private boolean isNotificationServiceRunning() {
