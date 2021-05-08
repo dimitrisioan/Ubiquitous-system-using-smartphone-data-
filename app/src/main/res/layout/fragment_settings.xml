@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/device_info"
         android:textColor="#4d4d4d"
         android:textSize="24sp"
@@ -157,13 +157,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:text="@string/remove_device"
+        app:cornerRadius="30dp"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:backgroundTint="#ADFF0000" />
+        app:backgroundTint="#ff0000" />
 
     <View
         android:layout_width="match_parent"

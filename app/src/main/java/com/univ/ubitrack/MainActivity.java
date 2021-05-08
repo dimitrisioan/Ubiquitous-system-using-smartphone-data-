@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
             @Override
             public void onReselectItem(MeowBottomNavigation.Model item) {
-                //Toast.makeText(getApplicationContext(), "ReSelected - "+String.valueOf(item.getId()), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
