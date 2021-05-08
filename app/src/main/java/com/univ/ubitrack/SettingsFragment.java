@@ -18,9 +18,10 @@ import java.util.Objects;
 
 
 public class SettingsFragment extends Fragment {
+    //    private Context context;
     TextView tx_recruitedTeam, tx_ageRange, tx_gender, tx_deviceId;
     Button deleteButton;
-    private Context context;
+//    private Context context;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -36,7 +37,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AlertDialog dialog = new AlertDialog.Builder(context)
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle("Title")
                 .setMessage("Example Message")
                 .setPositiveButton("Ok",null)
@@ -46,10 +47,9 @@ public class SettingsFragment extends Fragment {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingsFragment.this, "NotClosing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "NotClosing", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override
