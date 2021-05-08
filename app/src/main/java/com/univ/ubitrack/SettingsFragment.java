@@ -47,8 +47,13 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 DBHelper dbHelper = new DBHelper(getContext());
-                dbHelper.deleteAllDevises();
-                goToGetStarted();
+                try {
+                    dbHelper.deleteAllDevises();
+                    Toast.makeText(getContext(), "Device Removed Successfully", Toast.LENGTH_SHORT).show();
+                    goToGetStarted();
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Couldn't remove device", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         builder.setNegativeButton("Cancel",null);
