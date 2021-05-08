@@ -1,20 +1,26 @@
 package com.univ.ubitrack;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
 
 public class SettingsFragment extends Fragment {
     TextView tx_recruitedTeam, tx_ageRange, tx_gender, tx_deviceId;
-
+    Button deleteButton;
+    private Context context;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -30,6 +36,19 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("Title")
+                .setMessage("Example Message")
+                .setPositiveButton("Ok",null)
+                .setNegativeButton("Cancel",null)
+                .show();
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingsFragment.this, "NotClosing", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -58,4 +77,5 @@ public class SettingsFragment extends Fragment {
 
         return view;
     }
+
 }

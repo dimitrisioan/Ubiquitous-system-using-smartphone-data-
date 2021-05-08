@@ -24,7 +24,6 @@ public class FirstRegisterPage extends AppCompatActivity implements AdapterView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_first_register_page);
 
         sp_recruited_team = findViewById(R.id.sp_recruited_team);
