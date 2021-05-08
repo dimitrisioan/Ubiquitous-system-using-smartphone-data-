@@ -20,7 +20,7 @@ import java.util.Objects;
 public class SettingsFragment extends Fragment {
     //    private Context context;
     TextView tx_recruitedTeam, tx_ageRange, tx_gender, tx_deviceId;
-    Button deleteButton;
+    private Button delete_btn;
 //    private Context context;
 
     public SettingsFragment() {
@@ -37,20 +37,42 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                .setTitle("Title")
-                .setMessage("Example Message")
-                .setPositiveButton("Ok",null)
-                .setNegativeButton("Cancel",null)
-                .show();
-        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.fragment_settings);
+
+        delete_btn = findViewById(R.id.delete_btn);
+
+        delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "NotClosing", Toast.LENGTH_SHORT).show();
+                creteAlertDialog();
             }
         });
     }
+    private void creteAlertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to remove your device?");
+        builder.setPositiveButton("Yes",null);
+        builder.setNegativeButton("Cancel",null);
+        builder.create();
+        builder.show();
+    }
+
+
+
+//        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+//                .setTitle("Title")
+//                .setMessage("Are you sure you want to remove your device?")
+//                .setPositiveButton("Yes",null)
+//                .setNegativeButton("Cancel",null)
+//                .show();
+//        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+//        positiveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getActivity(), "NotClosing", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
