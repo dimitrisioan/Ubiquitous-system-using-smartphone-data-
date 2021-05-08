@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void applicationFragments() {
         setContentView(R.layout.activity_get_started_4);
-
         //Assign variable
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
@@ -101,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
-
-
             }
         });
 
@@ -116,17 +113,14 @@ public class MainActivity extends AppCompatActivity {
                 if (item.getId() == 1) {
                     //Statistics selected
                     fragment = new StatisticsFragment();
-
                 }
                 if (item.getId() == 2) {
                     //Home selected
                     fragment = new HomeFragment();
-
                 }
                 if (item.getId() == 3) {
                     //Settings Selected
                     fragment = new SettingsFragment();
-
                 }
                 Bundle settingsBundle = new Bundle();
                 if (device.getIsDeviseRegistered() == 1) {
@@ -135,13 +129,9 @@ public class MainActivity extends AppCompatActivity {
                     settingsBundle.putString("gender", capitalize(device.getGender()));
                     settingsBundle.putString("deviceId", String.valueOf(device.getDevice_id()));
                 }
-
                 fragment.setArguments(settingsBundle);
-
                 //Load fragments
-
                 loadFragment(fragment);
-
             }
         });
 
@@ -160,10 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.frame_layout,fragment)
                 .commit();
-
     }
-
-
 
     private String capitalize(final String line) {
         return Character.toUpperCase(line.charAt(0)) + line.substring(1);
