@@ -56,7 +56,7 @@ public class AEScreenOnOffService extends Service {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager);
                 }
-                Toast.makeText(getBaseContext(), "Screen is on", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), "Screen is on", Toast.LENGTH_SHORT).show();
                 if (MainActivity.debugging == 1)
                     Log.i("Screen State", "Screen is on");
 
@@ -66,7 +66,7 @@ public class AEScreenOnOffService extends Service {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager);
                 }
-                Toast.makeText(getBaseContext(), "Screen is off", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), "Screen is off", Toast.LENGTH_SHORT).show();
                 if (MainActivity.debugging == 1)
                     Log.i("Screen State", "Screen is off");
             }

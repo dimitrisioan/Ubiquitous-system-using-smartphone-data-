@@ -8,10 +8,18 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringDef;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,13 +33,14 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity {
     //Initialize variables
-
+    private NetworkCapabilities network_temp;
     public static int isPhoneRegistered = -1;
     Intent serviceIntent = null;
     public static int debugging = 1;
     DeviceModel device;
     MeowBottomNavigation bottomNavigation;
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
             isPhoneRegistered = device.getIsDeviseRegistered();
         }
 
-
         if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
             startLocationService();
+            startNetworkService();
         }else{
             goToGetStarted();
             boolean isNotificationServiceRunning = isNotificationServiceRunning();
@@ -56,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
             }
         }
+    }
+
+    public void startNetworkService() {
+        Context context = getApplicationContext();
+        NetworkService network = new NetworkService(context);
     }
 
     private void startLocationService() {

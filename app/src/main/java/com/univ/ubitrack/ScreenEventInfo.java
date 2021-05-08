@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -38,6 +39,8 @@ public class ScreenEventInfo {
         this.device_interactive = getDeviceInteractive();
         Notifications notifications = new Notifications(context);
         this.notifs_active = notifications.getNotificationCount();
+//        NetworkService network = new NetworkService(context);
+        this.network_type = NetworkService.getNetworkType();
     }
 
     private String getCurrentTime() {
