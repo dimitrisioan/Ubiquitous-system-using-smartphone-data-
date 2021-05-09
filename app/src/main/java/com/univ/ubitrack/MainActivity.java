@@ -1,37 +1,29 @@
 package com.univ.ubitrack;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.annotation.StringDef;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-
-import java.util.List;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity {
+    public static PlacesClient placesClient;
     //Initialize variables
     private NetworkCapabilities network_temp;
     public static int isPhoneRegistered = -1;
@@ -46,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DBHelper dbHelper = new DBHelper(MainActivity.this);
-
         device = (DeviceModel) dbHelper.getDevise();
+        Battery.CurrentPlaceActivity currentPlaceActivity = new Battery.CurrentPlaceActivity();
+
+        Places.initialize(getApplicationContext(), "AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk");
+        placesClient = Places.createClient(this);
 
         if (device != null) {
             isPhoneRegistered = device.getIsDeviseRegistered();
@@ -56,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
-            startLocationService();
+            checkForLocationPermision();
             startNetworkService();
         }else{
             goToGetStarted();
@@ -72,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
         NetworkService network = new NetworkService(context);
     }
 
-    private void startLocationService() {
+    private void checkForLocationPermision() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
         }
-        Context context = getApplicationContext();
+//        Context context = getApplicationContext();
 //        LocationService locationSevice = new LocationService(context);
     }
 
