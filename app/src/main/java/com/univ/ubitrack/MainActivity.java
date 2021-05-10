@@ -1,6 +1,8 @@
 package com.univ.ubitrack;
 
 import android.Manifest;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,8 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +21,19 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.ActivityRecognition;
+import com.google.android.gms.location.ActivityRecognitionClient;
+import com.google.android.gms.location.ActivityTransition;
+import com.google.android.gms.location.ActivityTransitionRequest;
+import com.google.android.gms.location.DetectedActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -31,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     public static int debugging = 1;
     DeviceModel device;
     MeowBottomNavigation bottomNavigation;
+    private ActivityRecognitionClient mActivityRecognitionClient;
+    public static final String DETECTED_ACTIVITY = ".DETECTED_ACTIVITY";
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
@@ -38,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DBHelper dbHelper = new DBHelper(MainActivity.this);
-        device = (DeviceModel) dbHelper.getDevise();
+        device = (DeviceModel) dbHelper.getDevice();
         Battery.CurrentPlaceActivity currentPlaceActivity = new Battery.CurrentPlaceActivity();
 
         Places.initialize(getApplicationContext(), "AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk");
@@ -53,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
             startAEScreenOnOffService();
             checkForLocationPermision();
             startNetworkService();
+            mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
+
+            requestUpdatesHandler();
         }else{
             goToGetStarted();
             boolean isNotificationServiceRunning = isNotificationServiceRunning();
@@ -61,6 +81,32 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public PendingIntent getActivityDetectionPendingIntent(Context context) {
+        Intent intent = new Intent(context, TransitionReceiver.class);
+        Log.i("Hi", "There");
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    public void requestUpdatesHandler() {
+//        ActivityTransitionRequest request = buildTransitionRequest();
+        Task<Void> task = mActivityRecognitionClient.requestActivityUpdates(0, getActivityDetectionPendingIntent(MainActivity.this));
+        task.addOnSuccessListener(
+                new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void result) {
+                        Toast.makeText(getApplicationContext(), "Recognition Client Initialized Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        task.addOnFailureListener(
+                new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(getApplicationContext(), "Failed to initialize Recognition Client", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     public void startNetworkService() {
         Context context = getApplicationContext();

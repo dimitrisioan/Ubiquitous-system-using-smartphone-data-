@@ -63,8 +63,8 @@ public class SecondRegisterPage extends AppCompatActivity {
         try {
             DBHelper dbHelper = new DBHelper(SecondRegisterPage.this);
             DeviceModel deviceModel = new DeviceModel(-1, Integer.parseInt(recruitingTeam), ageRange, gender, "device_" + recruitingTeam + "_1", 1);
-            dbHelper.deleteAllDevises();
-            boolean success = dbHelper.addDevise(deviceModel);
+            dbHelper.deleteAllDevices();
+            boolean success = dbHelper.addDevice(deviceModel);
             if (MainActivity.debugging == 1) {
                 Log.i("DB", String.valueOf(success));
             }

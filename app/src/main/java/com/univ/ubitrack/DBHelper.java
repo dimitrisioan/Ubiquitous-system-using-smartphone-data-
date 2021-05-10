@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -20,13 +19,27 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_IS_DEVISE_REGISTERED = "isDeviseRegistered";
     public static final String COLUMN_UID = "uid";
 
+    public static  final String USERS_DATA_TABLE = "USERS_DATA";
+    private static final String COLUMN_DISPLAY_STATE = "display_state";
+    private static final String COLUMN_SYSTEM_TIME = "system_time";
+    private static final String COLUMN_ACTIVITY = "activity";
+    private static final String COLUMN_ACTIVITY_CONF = "activity_conf";
+    private static final String COLUMN_LOCATION_ID = "location_id";
+    private static final String COLUMN_LOCATION_TYPE = "location_type";
+    private static final String COLUMN_LOCATION_CONF = "location_conf";
+    private static final String COLUMN_BATTERY_LEVEL = "battery_level";
+    private static final String COLUMN_BATTERY_STATUS = "battery_status";
+    private static final String COLUMN_NOTIFS_ACTIVE = "notifs_active";
+    private static final String COLUMN_DEVICE_INTERACTIVE = "device_interactive";
+    private static final String COLUMN_NETWORK_TYPE = "network_type";
+
     public DBHelper(@Nullable Context context) {
         super(context, "ubitrack", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createDeviseTableStatement = "create table " + DEVICE_TABLE + " (" +
+        String createDeviceTableStatement = "create table " + DEVICE_TABLE + " (" +
                 COLUMN_UID + " INTEGER " +
                 "constraint  device_pk " +
                 "primary key autoincrement, " +
@@ -36,7 +49,26 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_DEVICE_ID + " TEXT not null, " +
                 COLUMN_IS_DEVISE_REGISTERED + " BOOLEAN not null )";
 
-        db.execSQL(createDeviseTableStatement);
+        String createUsersDataTableStatement = "create table " + USERS_DATA_TABLE + " (" +
+                COLUMN_UID + " INTEGER " +
+                "constraint  device_pk " +
+                "primary key autoincrement, " +
+                COLUMN_DEVICE_INTERACTIVE + " TEXT DEFAULT 'unknown' not null, " +
+                COLUMN_DISPLAY_STATE + " INTEGER DEFAULT -1 not null, " +
+                COLUMN_SYSTEM_TIME + " TEXT NOT NULL, " +
+                COLUMN_ACTIVITY + " TEXT DEFAULT 'unknown' NOT NULL, " +
+                COLUMN_ACTIVITY_CONF + " FLOAT NOT NULL, " +
+                COLUMN_LOCATION_TYPE + " TEXT DEFAULT 'unknown' NOT NULL, " +
+                COLUMN_LOCATION_ID + " TEXT DEFAULT 'unknown' NOT NULL, " +
+                COLUMN_LOCATION_CONF + " TEXT DEFAULT 0 NOT NULL, " +
+                COLUMN_BATTERY_LEVEL + " INTEGER DEFAULT -1 NOT NULL, " +
+                COLUMN_BATTERY_STATUS + " TEXT DEFAULT 'unknown' NOT NULL, " +
+                COLUMN_NETWORK_TYPE + " TEXT DEFAULT 'unknown' NOT NULL, " +
+                COLUMN_NOTIFS_ACTIVE + " INTEGER DEFAULT -1 NOT NULL )";
+
+        db.execSQL(createDeviceTableStatement);
+        db.execSQL(createUsersDataTableStatement);
+
     }
 
     @Override
@@ -44,7 +76,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addDevise(DeviceModel deviceModel){
+    public boolean addDevice(DeviceModel deviceModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -58,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public void deleteAllDevises() {
+    public void deleteAllDevices() {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             db.delete(DEVICE_TABLE, null, null);
@@ -67,7 +99,16 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Object getDevise() {
+    public void deleteAllUsersData() {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(USERS_DATA_TABLE, null, null);
+        } catch (Exception e) {
+            Log.e("Database", "Error while deleting all devises.");
+        }
+    }
+
+    public Object getDevice() {
         String selectDevise = "SELECT * FROM " + DEVICE_TABLE;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -79,10 +120,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 int recruitedTeam = cursor.getInt(1);
                 String ageRange = cursor.getString(2);
                 String gender = cursor.getString(3);
-                String devise_id = cursor.getString(4);
-                int isDeviseRegisted = cursor.getInt(5);
+                String device_id = cursor.getString(4);
+                int isDeviceRegistered = cursor.getInt(5);
 
-                deviceModel = new DeviceModel(uid, recruitedTeam, ageRange, gender, devise_id, isDeviseRegisted);
+                deviceModel = new DeviceModel(uid, recruitedTeam, ageRange, gender, device_id, isDeviceRegistered);
             } else {
                 return null;
             }
