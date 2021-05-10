@@ -43,15 +43,15 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        sp_chart = view.findViewById(R.id.sp_chart);
+        Spinner sp_chart = view.findViewById(R.id.sp_chart);
         String[] chartItems = getResources().getStringArray(R.array.chart_items);
         ArrayAdapter adapter3 = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, chartItems);
 
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_chart.setAdapter(adapter3);
-
+        sp_chart.setSelection(0);
         sp_chart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -59,17 +59,11 @@ public class StatisticsFragment extends Fragment {
                 ((TextView) view).setTextColor(Color.BLACK);
                 Log.i("Chart", CHART_SPINNER_DATA);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
         return view;
     }
-
-
-
 }
