@@ -16,6 +16,7 @@
     <string name="welcome">Get Started</string>
     <string name="question_1">Which team recruited you?</string>
     <string name="question_2">What\'s your age?</string>
+    <string name="question_3">What type of chart would you like to see?</string>
     <string name="next_btn">Next</string>
     <string name="device_info">Device Info </string>
     <string name="age_range">Age Range: </string>

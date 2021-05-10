@@ -26,7 +26,7 @@
         android:id="@+id/gender_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="@string/what_s_your_gender"
         android:textColor="#2FCC76"
         android:textSize="18sp"
