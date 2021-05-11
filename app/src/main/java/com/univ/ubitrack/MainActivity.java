@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
     public PendingIntent getActivityDetectionPendingIntent(Context context) {
         Intent intent = new Intent(context, TransitionReceiver.class);
-        Log.i("Hi", "There");
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
