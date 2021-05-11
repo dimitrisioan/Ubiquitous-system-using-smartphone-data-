@@ -3,28 +3,22 @@ package com.univ.ubitrack;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
-import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -49,10 +43,11 @@ public class ScreenEventInfo {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public ScreenEventInfo(Context context, PowerManager powerManager) {
+        this.activity = TransitionReceiver.getLastMostProbableActivityString();
+        this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
         this.context = context;
         this.powerManager = powerManager;
         locationService = new LocationService(context);
-//        List<Object> location = locationService.getLoc();
         Battery battery = new Battery(context);
         this.battery_level = battery.getBatteryPercentage();
         this.battery_status = battery.getBatteryStatus();

@@ -15,12 +15,16 @@ import com.google.android.gms.location.ActivityTransitionEvent;
 import com.google.android.gms.location.ActivityTransitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class TransitionReceiver extends BroadcastReceiver {
     final String KEY_LAST_ACTIVITY_TYPE = "lastActivityType";
     private int lastActivityType = -1;
     public static final int MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION = 100;
+//    private static int lastActivityType = -1;
+    private static String lastMostProbableActivityString = "UNKNOWN";
+    private int lastMostProbableActivity = -1;
+    private static float lastMostProbableActivityConf;
 
     public static String getActivityString(Context context, int detectedActivityType) {
         Resources resources = context.getResources();
@@ -46,7 +50,6 @@ public class TransitionReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("Hi", "test");
         if (ActivityTransitionResult.hasResult(intent)) {
             ActivityTransitionResult result = ActivityTransitionResult.extractResult(intent);
             for (ActivityTransitionEvent event : result.getTransitionEvents()) {
@@ -58,21 +61,40 @@ public class TransitionReceiver extends BroadcastReceiver {
             //If data is available, then extract the ActivityRecognitionResult from the Intent//
             ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
             SharedPreferences sharedpreferences = context.getSharedPreferences("MY_PREFS", Context.MODE_PRIVATE);
-            lastActivityType = sharedpreferences.getInt(KEY_LAST_ACTIVITY_TYPE, -1);
+//            lastActivityType = sharedpreferences.getInt(KEY_LAST_ACTIVITY_TYPE, -1);
 
             //Get an array of DetectedActivity objects//
-            ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
+//            ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
+//
+//            for (DetectedActivity resultReceived : detectedActivities) {
+//                if (resultReceived.getConfidence() > 75) {
+//
+//                    if (lastActivityType != resultReceived.getType()) {
+//                        lastActivityType = resultReceived.getType();
+//                        sharedpreferences.edit().putInt(KEY_LAST_ACTIVITY_TYPE, lastActivityType).apply();
+//                    }
+//                }
+//            }
 
-            for (DetectedActivity resultReceived : detectedActivities) {
-                if (resultReceived.getConfidence() > 75) {
-
-                    if (lastActivityType != resultReceived.getType()) {
-                        lastActivityType = resultReceived.getType();
-                        Log.i("LastActivity", String.valueOf(lastActivityType));
-                        Toast.makeText(context, getActivityString(context, lastActivityType), Toast.LENGTH_SHORT).show();
-                    }
-                }
+            DetectedActivity mostPropableActivity = Objects.requireNonNull(result).getMostProbableActivity();
+            if (mostPropableActivity.getConfidence() > 75 && lastMostProbableActivity != mostPropableActivity.getType()) {
+                lastMostProbableActivity = mostPropableActivity.getType();
+                lastMostProbableActivityConf = mostPropableActivity.getConfidence();
+                sharedpreferences.edit().putInt(KEY_LAST_ACTIVITY_TYPE, lastMostProbableActivity).apply();
+                lastMostProbableActivityString =  getActivityString(context, mostPropableActivity.getType());
             }
         }
+    }
+
+    public static String getLastMostProbableActivityString() {
+        if (MainActivity.debugging == 1)
+            Log.i("Activity", String.valueOf(lastMostProbableActivityString));
+        return lastMostProbableActivityString;
+    }
+
+    public static float getLastMostProbableActivityConf() {
+        if (MainActivity.debugging == 1)
+            Log.i("Activity Conf", String.valueOf(lastMostProbableActivityConf));
+        return lastMostProbableActivityConf;
     }
 }
