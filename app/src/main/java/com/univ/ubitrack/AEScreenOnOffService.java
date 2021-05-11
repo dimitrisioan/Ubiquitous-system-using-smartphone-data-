@@ -54,7 +54,7 @@ public class AEScreenOnOffService extends Service {
                 Context context = getApplicationContext();
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager);
+                    ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager, 1);
                 }
 //                Toast.makeText(getBaseContext(), "Screen is on", Toast.LENGTH_SHORT).show();
                 if (MainActivity.debugging == 1)
@@ -64,7 +64,7 @@ public class AEScreenOnOffService extends Service {
                 Context context = getApplicationContext();
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager);
+                    ScreenEventInfo eventInfo = new ScreenEventInfo(this, powerManager, 0);
                 }
 //                Toast.makeText(getBaseContext(), "Screen is off", Toast.LENGTH_SHORT).show();
                 if (MainActivity.debugging == 1)

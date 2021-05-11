@@ -5,16 +5,20 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.location.ActivityRecognitionClient;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,33 +37,43 @@ public class ScreenEventInfo {
     private String location_id;
     private float location_conf;
     private int battery_level;
-    private boolean battery_status;
+    private String battery_status;
     private String network_type;
     private int notifs_active;
 
     private Context context;
     private PowerManager powerManager;
+    Battery battery;
     LocationService locationService;
+    Notifications notifications;
+    private PlacesClient placesClient;
+    private ActivityRecognitionClient mActivityRecognitionClient;
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public ScreenEventInfo(Context context, PowerManager powerManager) {
-        this.activity = TransitionReceiver.getLastMostProbableActivityString();
-        this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
+    public ScreenEventInfo(Context context, PowerManager powerManager, int display_state) {
+        this.display_state = display_state;
         this.context = context;
         this.powerManager = powerManager;
         locationService = new LocationService(context);
-        Battery battery = new Battery(context);
+        battery = new Battery(context);
+        notifications = new Notifications(context);
+        Places.initialize(context, "AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk");
+        placesClient = Places.createClient(context);
+        getLocation();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+    private void afterComplete(boolean result){
+        this.activity = TransitionReceiver.getLastMostProbableActivityString();
+        this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
         this.battery_level = battery.getBatteryPercentage();
         this.battery_status = battery.getBatteryStatus();
         this.system_time = getCurrentTime();
         this.device_interactive = getDeviceInteractive();
-        Notifications notifications = new Notifications(context);
         this.notifs_active = notifications.getNotificationCount();
         this.network_type = NetworkService.getNetworkType();
-        getLocation();
-    }
-
-    private void afterComplete(boolean result){
+        addUsersDataToDB();
         Log.i("Data", toString());
     }
 
@@ -68,11 +82,12 @@ public class ScreenEventInfo {
         FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
 
         if (ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Task<FindCurrentPlaceResponse> placeResponse = MainActivity.placesClient.findCurrentPlace(request);
+            Task<FindCurrentPlaceResponse> placeResponse = this.placesClient.findCurrentPlace(request);
             placeResponse.addOnCompleteListener(this::onComplete);
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void onComplete(Task<FindCurrentPlaceResponse> task) {
         if (task.isSuccessful()) {
             FindCurrentPlaceResponse response = task.getResult();
@@ -88,6 +103,7 @@ public class ScreenEventInfo {
             Exception exception = task.getException();
             if (exception instanceof ApiException) {
                 ApiException apiException = (ApiException) exception;
+                Log.e("ApiException", String.valueOf(apiException));
                 if (MainActivity.debugging == 1)
                     Log.e("TAG", "Place not found: " + apiException.getStatusCode());
                 this.location_conf = 0;
@@ -140,5 +156,22 @@ public class ScreenEventInfo {
             return "FALSE";
         }
         return "unknown";
+    }
+
+    private boolean addUsersDataToDB() {
+        try {
+            DBHelper dbHelper = new DBHelper(context);
+            UsersDataModel usersDataModel = new UsersDataModel(-1, this.device_interactive, this.display_state, this.system_time,
+                    this.activity, this.activity_conf, this.location_type, this.location_id, this.location_conf,
+                    this.battery_level, this.battery_status, this.network_type, this.notifs_active);
+            boolean success = dbHelper.addUsersData(usersDataModel);
+            if (MainActivity.debugging == 1) {
+                Log.i("DB", String.valueOf(success));
+            }
+            return true;
+        }catch (Exception e){
+            Toast.makeText(context, "An Error Occurred", Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 }

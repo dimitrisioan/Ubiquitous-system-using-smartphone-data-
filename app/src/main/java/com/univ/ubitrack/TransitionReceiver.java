@@ -18,9 +18,9 @@ import com.google.android.gms.location.DetectedActivity;
 import java.util.Objects;
 
 public class TransitionReceiver extends BroadcastReceiver {
-    final String KEY_LAST_ACTIVITY_TYPE = "lastActivityType";
-    private int lastActivityType = -1;
     public static final int MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION = 100;
+    final String KEY_LAST_ACTIVITY_TYPE = "lastActivityType";
+//    private int lastActivityType = -1;
 //    private static int lastActivityType = -1;
     private static String lastMostProbableActivityString = "UNKNOWN";
     private int lastMostProbableActivity = -1;

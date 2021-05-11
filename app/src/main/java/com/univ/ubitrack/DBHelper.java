@@ -90,6 +90,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
+    public boolean addUsersData(UsersDataModel usersDataModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COLUMN_DISPLAY_STATE, usersDataModel.getDisplay_state());
+        contentValues.put(COLUMN_DEVICE_INTERACTIVE, usersDataModel.getDevice_interactive());
+        contentValues.put(COLUMN_SYSTEM_TIME, usersDataModel.getSystem_time());
+        contentValues.put(COLUMN_ACTIVITY, usersDataModel.getActivity());
+        contentValues.put(COLUMN_ACTIVITY_CONF, usersDataModel.getActivity_conf());
+        contentValues.put(COLUMN_LOCATION_TYPE, usersDataModel.getLocation_type());
+        contentValues.put(COLUMN_LOCATION_ID, usersDataModel.getLocation_id());
+        contentValues.put(COLUMN_LOCATION_CONF, usersDataModel.getLocation_conf());
+        contentValues.put(COLUMN_BATTERY_LEVEL, usersDataModel.getBattery_level());
+        contentValues.put(COLUMN_BATTERY_STATUS, usersDataModel.getBattery_status());
+        contentValues.put(COLUMN_NETWORK_TYPE, usersDataModel.getNetwork_type());
+        contentValues.put(COLUMN_NOTIFS_ACTIVE, usersDataModel.getNotifs_active());
+
+        long insert = db.insert(USERS_DATA_TABLE, null, contentValues);
+        return insert != -1;
+    }
+
     public void deleteAllDevices() {
         try {
             SQLiteDatabase db = this.getWritableDatabase();

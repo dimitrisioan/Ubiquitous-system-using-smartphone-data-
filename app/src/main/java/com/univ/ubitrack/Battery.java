@@ -32,7 +32,7 @@ public class Battery{
         this.context = c;
     }
 
-    public boolean getBatteryStatus() {
+    public String getBatteryStatus() {
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = context.registerReceiver(null, ifilter);
         // Are we charging / charged?
@@ -42,11 +42,11 @@ public class Battery{
         if(isCharging){
             if (MainActivity.debugging == 1)
                 Log.i("Battery Status ", "Charging");
-            return true;
+            return "TRUE";
         }
         if (MainActivity.debugging == 1)
             Log.i("Battery Status", "Discharging");
-        return false;
+        return "FALSE";
     }
 
     public int getBatteryPercentage() {

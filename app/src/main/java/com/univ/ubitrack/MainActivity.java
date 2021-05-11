@@ -31,16 +31,15 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity {
-    public static PlacesClient placesClient;
-    //Initialize variables
-    private NetworkCapabilities network_temp;
+
+
     public static int isPhoneRegistered = -1;
     Intent serviceIntent = null;
     public static int debugging = 1;
     DeviceModel device;
     MeowBottomNavigation bottomNavigation;
     private ActivityRecognitionClient mActivityRecognitionClient;
-    public static final String DETECTED_ACTIVITY = ".DETECTED_ACTIVITY";
+
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
@@ -51,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         device = (DeviceModel) dbHelper.getDevice();
         Battery.CurrentPlaceActivity currentPlaceActivity = new Battery.CurrentPlaceActivity();
 
-        Places.initialize(getApplicationContext(), "AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk");
-        placesClient = Places.createClient(this);
-
         if (device != null) {
             isPhoneRegistered = device.getIsDeviseRegistered();
         }
@@ -62,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             applicationFragments();
             startAEScreenOnOffService();
             checkForLocationPermission();
+            checkForActivityPermission();
             startNetworkService();
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
 
@@ -92,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 });
         task.addOnFailureListener(
                 new OnFailureListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.Q)
                     @Override
                     public void onFailure(Exception e) {
                         Toast.makeText(getApplicationContext(), "Failed to initialize Recognition Client", Toast.LENGTH_SHORT).show();
@@ -99,19 +97,18 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
     public void startNetworkService() {
         Context context = getApplicationContext();
         NetworkService network = new NetworkService(context);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     private void checkForActivityPermission(){
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
             // Permission is not granted
         }
     }
-
 
     private void checkForLocationPermission() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
