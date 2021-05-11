@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class TransitionReceiver extends BroadcastReceiver {
     final String KEY_LAST_ACTIVITY_TYPE = "lastActivityType";
     private int lastActivityType = -1;
+    public static final int MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION = 100;
 
     public static String getActivityString(Context context, int detectedActivityType) {
         Resources resources = context.getResources();

@@ -2,7 +2,6 @@ package com.univ.ubitrack;
 
 import android.Manifest;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,19 +20,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.ActivityRecognitionClient;
-import com.google.android.gms.location.ActivityTransition;
-import com.google.android.gms.location.ActivityTransitionRequest;
-import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
-
-import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -68,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
-            checkForLocationPermision();
+            checkForLocationPermission();
             startNetworkService();
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
 
@@ -113,7 +106,15 @@ public class MainActivity extends AppCompatActivity {
         NetworkService network = new NetworkService(context);
     }
 
-    private void checkForLocationPermision() {
+    private void checkForActivityPermission(){
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
+            // Permission is not granted
+        }
+    }
+
+
+    private void checkForLocationPermission() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
         }
