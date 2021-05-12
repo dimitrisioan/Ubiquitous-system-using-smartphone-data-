@@ -173,7 +173,6 @@ public class ScreenEventInfo {
             if (MainActivity.debugging == 1) {
                 Log.i("DB", String.valueOf(success));
             }
-            Toast.makeText(context, toString(), Toast.LENGTH_LONG).show();
             return true;
         }catch (Exception e){
 //            Toast.makeText(context, toString(), Toast.LENGTH_LONG).show();
