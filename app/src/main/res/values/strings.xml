@@ -17,7 +17,7 @@
     <string name="question_1">Which team recruited you?</string>
     <string name="question_2">What\'s your age?</string>
     <string name="question_3">What type of chart would you like to see?</string>
-    <string name="question_4">Once you click NEXT button, you will be transferred to "App Info" permissions, where you need to accept both Physical Activity and Location Permissions.</string>
+    <string name="question_4">Once you click NEXT button, you will be transferred to "App Info"  permissions, where you need to accept both Physical Activity and Location Permissions.</string>
     <string name="next_btn">Next</string>
     <string name="device_info">Device Info </string>
     <string name="age_range">Age Range: </string>
