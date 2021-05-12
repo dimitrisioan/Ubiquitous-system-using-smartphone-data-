@@ -75,10 +75,8 @@ public class ScreenEventInfo {
         this.notifs_active = notifications.getNotificationCount();
         this.network_type = NetworkService.getNetworkType();
         addUsersDataToDB();
-        Log.i("Data", toString());
-        DBHelper dbHelper = new DBHelper(context);
-        ArrayList<UsersDataModel> usersDataModels = dbHelper.getLastTwoUsersData();
-        Log.i("DB ArrayList", String.valueOf(usersDataModels.get(0)));
+//        Log.i("Data", toString());
+
     }
 
     public void getLocation() {

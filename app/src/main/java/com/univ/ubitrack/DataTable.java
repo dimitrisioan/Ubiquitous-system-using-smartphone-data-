@@ -4,19 +4,26 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class DataTable extends Fragment {
-
-
+    private TableLayout tableLayout;
+    private ArrayList<UsersDataModel> usersDataModels;
+    UsersDataModel screen_off_data, screen_on_data;
 
     public DataTable() {
         // Required empty public constructor
     }
-
 
     public static DataTable newInstance(String param1, String param2) {
         DataTable fragment = new DataTable();
@@ -34,7 +41,155 @@ public class DataTable extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_data_table, container, false);
+        View view = inflater.inflate(R.layout.fragment_data_table, container, false);
+
+        tableLayout = view.findViewById(R.id.lastUsersDataTable);
+        getTableDataFromDB();
+        if (usersDataModels.get(0).getDisplay_state() == 0){
+            screen_off_data = usersDataModels.get(0);
+            screen_on_data = usersDataModels.get(1);
+        }else{
+            screen_off_data = usersDataModels.get(1);
+            screen_on_data = usersDataModels.get(0);
+        }
+        addRowData(view, 0);
+        return view;
+    }
+
+    public void addRowData(View view, int columnIndex) {
+        TableRow row;
+        TextView textView1, textView2;
+
+        row = view.findViewById(R.id.tv_device_interactive);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getDevice_interactive()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getDevice_interactive()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_display_state);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getDisplay_state()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getDisplay_state()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_system_time);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getSystem_time()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getSystem_time()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_activity);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getActivity()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getActivity()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_activity_conf);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getActivity_conf()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getActivity_conf()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_location_type);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getLocation_type()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getLocation_type()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_location_id);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getLocation_id()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getLocation_id()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_location_conf);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getLocation_conf()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getLocation_conf()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_battery_level);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getBattery_level()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getBattery_level()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_battery_status);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getBattery_status()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getBattery_status()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_network_type);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getNetwork_type()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getNetwork_type()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+
+        row = view.findViewById(R.id.tv_notifs_active);
+        textView1 = new TextView(getContext());
+        textView2 = new TextView(getContext());
+        textView1.setText(String.valueOf(screen_on_data.getNotifs_active()));
+        textView1.setGravity(Gravity.LEFT);
+        textView2.setText(String.valueOf(screen_off_data.getNotifs_active()));
+        textView2.setGravity(Gravity.LEFT);
+        row.addView(textView1);
+        row.addView(textView2);
+    }
+
+    private boolean getTableDataFromDB() {
+        DBHelper dbHelper = new DBHelper(getContext());
+        try {
+            usersDataModels = dbHelper.getLastTwoUsersData();
+        } catch (Exception e) {
+            if (MainActivity.debugging == 1)
+            e.printStackTrace();
+        }
+        return usersDataModels.size() == 2;
     }
 }
+

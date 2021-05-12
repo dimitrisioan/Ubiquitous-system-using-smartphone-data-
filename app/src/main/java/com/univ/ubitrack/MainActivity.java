@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void result) {
-                        Toast.makeText(getApplicationContext(), "Recognition Client Initialized Successfully", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "Recognition Client Initialized Successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
         task.addOnFailureListener(

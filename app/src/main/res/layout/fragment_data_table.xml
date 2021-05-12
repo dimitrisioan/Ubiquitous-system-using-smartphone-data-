@@ -7,184 +7,199 @@
     tools:context=".DataTable">
 
 
+  <TableLayout
+      android:id="@+id/lastUsersDataTable"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="15dp"
+      android:background="@android:color/white">
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/app_color">
+
+      <TextView
+          android:layout_column="2"
+          android:gravity="center"
+          android:paddingLeft="35dp"
+          android:paddingTop="10dp"
+          android:paddingRight="35dp"
+          android:paddingBottom="10dp"
+          android:text="Screen On"
+          android:textColor="@color/white"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:layout_column="3"
+          android:gravity="center"
+          android:paddingLeft="35dp"
+          android:paddingTop="10dp"
+          android:paddingRight="35dp"
+          android:paddingBottom="10dp"
+          android:text="Screen Off"
+          android:textColor="@color/white"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <TableRow android:id="@+id/tv_device_interactive">
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="device_interactive"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_display_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/table_row_color">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="display_state"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_system_time">
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="system_time"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/table_row_color">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="activity"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_activity_conf">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="activity_conf"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_location_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/table_row_color">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="location_type"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_location_id">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="location_id"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_location_conf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/table_row_color">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="location_conf"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_battery_level">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="battery_level"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tv_battery_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/table_row_color">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="battery_status"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_network_type">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="network_type"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow android:id="@+id/tv_notifs_active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/table_row_color">
+
+      <TextView
+          android:layout_column="1"
+          android:gravity="left"
+          android:padding="10dp"
+          android:text="notifs_active"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+    </TableRow>
 
 
-   <TableLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:background="@android:color/white"
-       android:layout_margin="15dp">
-       <TableRow
-           android:layout_height="wrap_content"
-           android:layout_width="wrap_content"
-           android:background="@color/app_color">
-           <TextView
-               android:text="Screen On"
-               android:textColor="@color/white"
-               android:textSize="12sp"
-               android:textStyle="bold"
-               android:paddingTop="10dp"
-               android:paddingBottom="10dp"
-               android:paddingRight="35dp"
-               android:paddingLeft="35dp"
-               android:gravity="center"
-               android:layout_column="2"/>
-           <TextView
-               android:text="Screen Off"
-               android:textColor="@color/white"
-               android:textSize="12sp"
-               android:textStyle="bold"
-               android:paddingTop="10dp"
-               android:paddingBottom="10dp"
-               android:paddingRight="35dp"
-               android:paddingLeft="35dp"
-               android:gravity="center"
-               android:layout_column="3"/>
-       </TableRow>
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="1dp"
-           android:background="@android:color/black"/>
-     <TableRow>
-    <TextView
-        android:text="device_interactive"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-     </TableRow>
-
-       <TableRow
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:background="@color/table_row_color">
-       <TextView
-        android:text="display_state"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow>
-       <TextView
-        android:text="system_time"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:background="@color/table_row_color">
-       <TextView
-        android:text="activity"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow>
-       <TextView
-        android:text="activity_conf"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:background="@color/table_row_color">
-       <TextView
-        android:text="location_type"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow>
-       <TextView
-        android:text="location_id"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:background="@color/table_row_color">
-       <TextView
-        android:text="location_conf"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow>
-       <TextView
-        android:text="battery_level"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:background="@color/table_row_color">
-       <TextView
-        android:text="battery_status"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow>
-       <TextView
-        android:text="network_type"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-       <TableRow
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:background="@color/table_row_color">
-       <TextView
-        android:text="notifs_active"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="10dp"
-        android:gravity="left"
-        android:layout_column="1"/>
-       </TableRow>
-
-
-       </TableLayout>
+  </TableLayout>
 
 
 </LinearLayout>

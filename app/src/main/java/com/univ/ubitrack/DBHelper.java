@@ -58,15 +58,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_DEVICE_INTERACTIVE + " TEXT DEFAULT 'unknown' not null, " +
                 COLUMN_DISPLAY_STATE + " INTEGER DEFAULT -1 not null, " +
                 COLUMN_SYSTEM_TIME + " TEXT NOT NULL, " +
-                COLUMN_ACTIVITY + " TEXT DEFAULT 'unknown' NOT NULL, " +
-                COLUMN_ACTIVITY_CONF + " FLOAT NOT NULL, " +
-                COLUMN_LOCATION_TYPE + " TEXT DEFAULT 'unknown' NOT NULL, " +
-                COLUMN_LOCATION_ID + " TEXT DEFAULT 'unknown' NOT NULL, " +
-                COLUMN_LOCATION_CONF + " TEXT DEFAULT 0 NOT NULL, " +
-                COLUMN_BATTERY_LEVEL + " INTEGER DEFAULT -1 NOT NULL, " +
-                COLUMN_BATTERY_STATUS + " TEXT DEFAULT 'unknown' NOT NULL, " +
-                COLUMN_NETWORK_TYPE + " TEXT DEFAULT 'unknown' NOT NULL, " +
-                COLUMN_NOTIFS_ACTIVE + " INTEGER DEFAULT -1 NOT NULL )";
+                COLUMN_ACTIVITY + " TEXT DEFAULT 'unknown', " +
+                COLUMN_ACTIVITY_CONF + " FLOAT DEFAULT 0.0, " +
+                COLUMN_LOCATION_TYPE + " TEXT DEFAULT 'unknown', " +
+                COLUMN_LOCATION_ID + " TEXT DEFAULT 'unknown', " +
+                COLUMN_LOCATION_CONF + " TEXT DEFAULT 0, " +
+                COLUMN_BATTERY_LEVEL + " INTEGER DEFAULT -1, " +
+                COLUMN_BATTERY_STATUS + " TEXT DEFAULT 'unknown', " +
+                COLUMN_NETWORK_TYPE + " TEXT DEFAULT 'unknown', " +
+                COLUMN_NOTIFS_ACTIVE + " INTEGER DEFAULT -1)";
 
         db.execSQL(createDeviceTableStatement);
         db.execSQL(createUsersDataTableStatement);
