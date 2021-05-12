@@ -23,7 +23,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UbiTrackLight">
-        <activity android:name=".DataTable"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

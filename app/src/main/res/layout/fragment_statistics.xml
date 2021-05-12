@@ -41,4 +41,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.04" />
 
+    <FrameLayout
+        android:id="@+id/parent_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
 </LinearLayout>
