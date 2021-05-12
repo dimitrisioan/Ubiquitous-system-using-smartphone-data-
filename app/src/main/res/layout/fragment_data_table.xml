@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_data_table"
+    tools:context=".DataTable">
+
+
+
+
+   <TableLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@android:color/white"
+       android:layout_margin="15dp">
+       <TableRow
+           android:layout_height="wrap_content"
+           android:layout_width="wrap_content"
+           android:background="@color/app_color">
+           <TextView
+               android:text="Screen On"
+               android:textColor="@color/white"
+               android:textSize="12sp"
+               android:textStyle="bold"
+               android:paddingTop="10dp"
+               android:paddingBottom="10dp"
+               android:paddingRight="35dp"
+               android:paddingLeft="35dp"
+               android:gravity="center"
+               android:layout_column="2"/>
+           <TextView
+               android:text="Screen Off"
+               android:textColor="@color/white"
+               android:textSize="12sp"
+               android:textStyle="bold"
+               android:paddingTop="10dp"
+               android:paddingBottom="10dp"
+               android:paddingRight="35dp"
+               android:paddingLeft="35dp"
+               android:gravity="center"
+               android:layout_column="3"/>
+       </TableRow>
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@android:color/black"/>
+     <TableRow>
+    <TextView
+        android:text="device_interactive"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+     </TableRow>
+
+       <TableRow
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/table_row_color">
+       <TextView
+        android:text="display_state"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow>
+       <TextView
+        android:text="system_time"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/table_row_color">
+       <TextView
+        android:text="activity"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow>
+       <TextView
+        android:text="activity_conf"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/table_row_color">
+       <TextView
+        android:text="location_type"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow>
+       <TextView
+        android:text="location_id"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/table_row_color">
+       <TextView
+        android:text="location_conf"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow>
+       <TextView
+        android:text="battery_level"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/table_row_color">
+       <TextView
+        android:text="battery_status"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow>
+       <TextView
+        android:text="network_type"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+       <TableRow
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@color/table_row_color">
+       <TextView
+        android:text="notifs_active"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="left"
+        android:layout_column="1"/>
+       </TableRow>
+
+
+       </TableLayout>
+
+
+</LinearLayout>
