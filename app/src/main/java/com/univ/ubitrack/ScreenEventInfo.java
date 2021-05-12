@@ -50,6 +50,9 @@ public class ScreenEventInfo {
     private PlacesClient placesClient;
     private ActivityRecognitionClient mActivityRecognitionClient;
 
+    private static final int LONG_DELAY = 10500; // 3.5 seconds
+    private static final int SHORT_DELAY = 2000; // 2 seconds
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public ScreenEventInfo(Context context, PowerManager powerManager, int display_state) {
@@ -170,8 +173,10 @@ public class ScreenEventInfo {
             if (MainActivity.debugging == 1) {
                 Log.i("DB", String.valueOf(success));
             }
+            Toast.makeText(context, toString(), Toast.LENGTH_LONG).show();
             return true;
         }catch (Exception e){
+//            Toast.makeText(context, toString(), Toast.LENGTH_LONG).show();
             Toast.makeText(context, "An Error Occurred", Toast.LENGTH_SHORT).show();
         }
         return false;

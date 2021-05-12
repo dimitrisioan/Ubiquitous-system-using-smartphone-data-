@@ -56,11 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (isPhoneRegistered == 1) {
             applicationFragments();
+
+//            while (!checkForActivityPermission() || !checkForLocationPermission()) {
+//                checkForActivityPermission();
+//                checkForLocationPermission();
+//            }
             startAEScreenOnOffService();
-            checkForLocationPermission();
             startNetworkService();
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
-            checkForActivityPermission();
 
             requestUpdatesHandler();
         }else{
@@ -102,21 +105,6 @@ public class MainActivity extends AppCompatActivity {
         NetworkService network = new NetworkService(context);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void checkForActivityPermission(){
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
-            // Permission is not granted
-        }
-    }
-
-    private void checkForLocationPermission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
-        }
-//        Context context = getApplicationContext();
-//        LocationService locationSevice = new LocationService(context);
-    }
 
     private boolean isNotificationServiceRunning() {
         ContentResolver contentResolver = getContentResolver();
