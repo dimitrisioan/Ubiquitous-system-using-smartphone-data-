@@ -10,11 +10,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION"
-        tools:node="remove" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:allowBackup="true"
@@ -59,8 +58,7 @@
 <!--            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>-->
 
         <receiver android:name=".TransitionReceiver"
-            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION"
-            android:exported="false"/>
+            android:permission="android.permission.ACTIVITY_RECOGNITION" />
 
         <receiver android:name=".AEScreenOnOffReceiver" />
     </application>

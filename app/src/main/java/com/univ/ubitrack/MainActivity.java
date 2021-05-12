@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
             applicationFragments();
             startAEScreenOnOffService();
             checkForLocationPermission();
-            checkForActivityPermission();
             startNetworkService();
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
+            checkForActivityPermission();
 
             requestUpdatesHandler();
         }else{
