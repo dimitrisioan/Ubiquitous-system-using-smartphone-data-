@@ -50,21 +50,7 @@ public class SecondRegisterPage extends AppCompatActivity {
                     boolean success = addDeviseToDB();
                     if (success) {
                         openApp();
-                        try {
-                            //Open the specific App Info page:
-                            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            String packageName = "com.univ.ubitrack";
-                            intent.setData(Uri.parse("package:" + packageName));
-                            startActivity(intent);
-
-                        } catch ( ActivityNotFoundException e ) {
-                            //e.printStackTrace();
-
-                            //Open the generic Apps page:
-                            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
-                            startActivity(intent);
-
-                        }
+                        openAppSettings();
                     }
                 }catch (Exception e) {
                     Toast.makeText(SecondRegisterPage.this, "Choose your Gender", Toast.LENGTH_SHORT).show();
@@ -73,24 +59,22 @@ public class SecondRegisterPage extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private boolean checkForActivityPermission(){
-        if (ContextCompat.checkSelfPermission(SecondRegisterPage.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
-            Toast.makeText(SecondRegisterPage.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
+    public void openAppSettings() {
+        try {
+            //Open the specific App Info page:
+            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            String packageName = "com.univ.ubitrack";
+            intent.setData(Uri.parse("package:" + packageName));
+            startActivity(intent);
 
-    private boolean checkForLocationPermission() {
-        if (ContextCompat.checkSelfPermission(SecondRegisterPage.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
-            return false;
+        } catch ( ActivityNotFoundException e ) {
+            //e.printStackTrace();
+
+            //Open the generic Apps page:
+            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+            startActivity(intent);
+
         }
-        return true;
-//        Context context = getApplicationContext();
-//        LocationService locationSevice = new LocationService(context);
     }
 
     private void openApp(){

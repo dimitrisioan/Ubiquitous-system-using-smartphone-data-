@@ -2,11 +2,13 @@ package com.univ.ubitrack;
 
 import android.Manifest;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.NetworkCapabilities;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -34,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static int isPhoneRegistered = -1;
-    Intent serviceIntent = null;
     public static int debugging = 1;
+    Intent serviceIntent = null;
     DeviceModel device;
     MeowBottomNavigation bottomNavigation;
     private ActivityRecognitionClient mActivityRecognitionClient;
@@ -56,22 +58,40 @@ public class MainActivity extends AppCompatActivity {
 
         if (isPhoneRegistered == 1) {
             applicationFragments();
-
-//            while (!checkForActivityPermission() || !checkForLocationPermission()) {
-//                checkForActivityPermission();
-//                checkForLocationPermission();
-//            }
             startAEScreenOnOffService();
             startNetworkService();
+
+            if(!checkForActivityPermission() || !checkForLocationPermission()){
+                openAppSettings();
+                Toast.makeText(getApplicationContext(), "Please the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
+            }
+
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
 
             requestUpdatesHandler();
-        }else{
+        } else {
             goToGetStarted();
             boolean isNotificationServiceRunning = isNotificationServiceRunning();
-            if(!isNotificationServiceRunning){
+            if (!isNotificationServiceRunning) {
                 startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS));
             }
+        }
+    }
+
+    public void openAppSettings() {
+        try {
+            //Open the specific App Info page:
+            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            String packageName = "com.univ.ubitrack";
+            intent.setData(Uri.parse("package:" + packageName));
+            startActivity(intent);
+        } catch ( ActivityNotFoundException e ) {
+            //e.printStackTrace();
+
+            //Open the generic Apps page:
+            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+            startActivity(intent);
+
         }
     }
 
@@ -105,6 +125,23 @@ public class MainActivity extends AppCompatActivity {
         NetworkService network = new NetworkService(context);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private boolean checkForActivityPermission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
+            Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkForLocationPermission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
+            return false;
+        }
+        return true;
+    }
 
     private boolean isNotificationServiceRunning() {
         ContentResolver contentResolver = getContentResolver();
@@ -114,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         return enabledNotificationListeners != null && enabledNotificationListeners.contains(packageName);
     }
 
-    private void startAEScreenOnOffService(){
+    private void startAEScreenOnOffService() {
         Context context = getApplicationContext();
         if (serviceIntent == null) {
             serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
@@ -122,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void goToGetStarted(){
+    private void goToGetStarted() {
         Intent intent = new Intent(this, WelcomePage.class);
         startActivity(intent);
     }
@@ -183,12 +220,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFragment(Fragment fragment){
+    private void loadFragment(Fragment fragment) {
         //LOAD YOUR FRAGMENTS
         //Replace fragment
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame_layout,fragment)
+                .replace(R.id.frame_layout, fragment)
                 .commit();
     }
 
