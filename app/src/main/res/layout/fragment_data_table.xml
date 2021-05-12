@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_data_table"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".DataTable">
 
     <ScrollView
@@ -44,7 +44,7 @@
                         android:paddingBottom="10dp"
                         android:text="Screen On"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -56,7 +56,7 @@
                         android:paddingBottom="10dp"
                         android:text="Screen Off"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </TableRow>
 
@@ -72,8 +72,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="device_interactive"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow
@@ -87,8 +88,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="display_state"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow android:id="@+id/tv_system_time">
@@ -98,8 +100,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="system_time"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow
@@ -113,8 +116,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="activity"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow android:id="@+id/tv_activity_conf">
@@ -124,8 +128,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="activity_conf"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
                 <TableRow
@@ -139,8 +144,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="location_type"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
                 <TableRow android:id="@+id/tv_location_id">
@@ -150,8 +156,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="location_id"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
                 <TableRow
@@ -165,8 +172,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="location_conf"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
                 <TableRow android:id="@+id/tv_battery_level">
@@ -176,8 +184,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="battery_level"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
                 <TableRow
@@ -191,8 +200,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="battery_status"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
                 <TableRow android:id="@+id/tv_network_type">
@@ -202,8 +212,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="network_type"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
                 <TableRow
@@ -217,8 +228,9 @@
                         android:gravity="left"
                         android:padding="10dp"
                         android:text="notifs_active"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="normal"/>
                 </TableRow>
 
 
