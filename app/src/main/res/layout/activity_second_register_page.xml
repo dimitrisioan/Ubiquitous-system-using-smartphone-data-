@@ -100,10 +100,10 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:layout_gravity="right"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="145dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="0dp"
         android:textStyle="bold"
         app:backgroundTint="#2FCC76"
         app:cornerRadius="30dp"
@@ -114,12 +114,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_permission"
         app:layout_constraintVertical_bias="0.859" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
     <TextView
         android:id="@+id/tv_permission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="10dp"
         android:text="@string/question_4"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
@@ -129,7 +132,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/genderRadioGroup" />
-
+    </LinearLayout>
 
 
 </LinearLayout>
