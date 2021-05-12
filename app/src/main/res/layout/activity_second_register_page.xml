@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     android:background="#FBFBFB"
     tools:context=".SecondRegisterPage"
     android:orientation="vertical">
@@ -87,6 +88,9 @@
             android:textStyle="bold" />
     </RadioGroup>
 
+
+
+
     <Button
         android:id="@+id/button2"
         android:layout_width="120dp"
@@ -96,9 +100,10 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:layout_gravity="right"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold"
         app:backgroundTint="#2FCC76"
         app:cornerRadius="30dp"
@@ -106,8 +111,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/tv_permission"
         app:layout_constraintVertical_bias="0.859" />
+
+    <TextView
+        android:id="@+id/tv_permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:text="@string/question_4"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_baseline_warning_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genderRadioGroup" />
+
 
 
 </LinearLayout>
