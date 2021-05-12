@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DEVICE_TABLE = "DEVICE";
@@ -152,5 +154,40 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return deviceModel;
+    }
+
+    public ArrayList<UsersDataModel> getLastTwoUsersData() {
+        String selectUsersData = "SELECT * FROM " + USERS_DATA_TABLE + " ORDER BY + " + COLUMN_UID + " DESC LIMIT 2";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ArrayList<UsersDataModel> usersData = new ArrayList<UsersDataModel>();
+
+        try (Cursor cursor = db.rawQuery(selectUsersData, null)) {
+            while (cursor.moveToNext()) {
+                UsersDataModel usersDataModel = null;
+                int uid = cursor.getInt(0);
+                String device_interactive = cursor.getString(1);
+                int display_state = cursor.getInt(2);
+                String system_time = cursor.getString(3);
+                String activity = cursor.getString(4);
+                float activity_conf = cursor.getFloat(5);
+                String location_type = cursor.getString(6);
+                String location_id = cursor.getString(7);
+                float location_conf = cursor.getFloat(8);
+                int battery_level = cursor.getInt(9);
+                String battery_status = cursor.getString(10);
+                String network_type = cursor.getString(11);
+                int notifs_active = cursor.getInt(12);
+                usersDataModel = new UsersDataModel(uid, device_interactive, display_state, system_time,
+                        activity, activity_conf, location_type, location_id, location_conf, battery_level,
+                        battery_status, network_type, notifs_active);
+                usersData.add(usersDataModel);
+                if (MainActivity.debugging == 1) {
+                    Log.i("DB Rows", usersDataModel.toString());
+                }
+            }
+        }
+        db.close();
+        return usersData;
     }
 }
