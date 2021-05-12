@@ -76,7 +76,7 @@ public class StatisticsFragment extends Fragment  {
     public void setFragment(Fragment fragment){
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_data_table,fragment);
+        fragmentTransaction.replace(R.id.parent_fragment_container,fragment);
         fragmentTransaction.commit();
     }
 }
