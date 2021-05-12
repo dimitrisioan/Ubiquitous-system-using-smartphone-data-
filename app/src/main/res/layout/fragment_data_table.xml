@@ -6,6 +6,11 @@
     android:id="@+id/fragment_data_table"
     tools:context=".DataTable">
 
+  <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:scrollbars="none"
+      android:layout_weight="1">
 
   <TableLayout
       android:id="@+id/lastUsersDataTable"
@@ -200,6 +205,6 @@
 
 
   </TableLayout>
-
+  </ScrollView>
 
 </LinearLayout>

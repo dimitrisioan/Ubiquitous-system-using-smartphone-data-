@@ -61,10 +61,18 @@ public class StatisticsFragment extends Fragment  {
 //                CHART_SPINNER_DATA = adapterView.getItemAtPosition(i).toString();
 //                ((TextView) view).setTextColor(Color.BLACK);
 //                Log.i("Chart", CHART_SPINNER_DATA);
-                if (i==0){
+                if (i == 0) {
                         setFragment(dataFragment);
-
                 }
+//                if(i == 1) {
+//                    setFragment(chart1Fragment);
+//                }
+//                if(i == 2) {
+//                    setFragment(chart2Fragment);
+//                }
+//                if (i == 3) {
+//                    setFragment(chart3Fragment);
+//                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
