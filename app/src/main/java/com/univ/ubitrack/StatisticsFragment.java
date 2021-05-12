@@ -58,8 +58,8 @@ public class StatisticsFragment extends Fragment  {
         sp_chart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                CHART_SPINNER_DATA = adapterView.getItemAtPosition(i).toString();
-//                ((TextView) view).setTextColor(Color.BLACK);
+                CHART_SPINNER_DATA = adapterView.getItemAtPosition(i).toString();
+                ((TextView) view).setTextColor(Color.BLACK);
 //                Log.i("Chart", CHART_SPINNER_DATA);
                 if (i == 0) {
                         setFragment(dataFragment);

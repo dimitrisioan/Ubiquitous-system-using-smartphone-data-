@@ -1,5 +1,6 @@
 package com.univ.ubitrack;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -68,6 +69,9 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getDevice_interactive()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
+
         row.addView(textView1);
         row.addView(textView2);
 
@@ -78,6 +82,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getDisplay_state()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -88,6 +94,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getSystem_time()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -98,6 +106,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getActivity()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -108,6 +118,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getActivity_conf()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -120,6 +132,8 @@ public class DataTable extends Fragment {
         textView2.setText(String.valueOf(screen_off_data.getLocation_type()));
         textView2.setGravity(Gravity.CENTER);
         textView2.setTextSize(10);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -136,6 +150,8 @@ public class DataTable extends Fragment {
         else
             textView1.setText(String.valueOf("null"));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -146,6 +162,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getLocation_conf()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -156,6 +174,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getBattery_level()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -166,6 +186,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getBattery_status()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -176,6 +198,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getNetwork_type().substring(10, screen_off_data.getNetwork_type().length())));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
 
@@ -186,6 +210,8 @@ public class DataTable extends Fragment {
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(String.valueOf(screen_off_data.getNotifs_active()));
         textView2.setGravity(Gravity.CENTER);
+        textView1.setTextColor(Color.BLACK);
+        textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
         row.addView(textView2);
     }
