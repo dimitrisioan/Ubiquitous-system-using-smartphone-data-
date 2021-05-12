@@ -59,7 +59,6 @@ public class AEScreenOnOffService extends Service {
 //                Toast.makeText(getBaseContext(), "Screen is on", Toast.LENGTH_SHORT).show();
                 if (MainActivity.debugging == 1)
                     Log.i("Screen State", "Screen is on");
-
             } else {
                 Context context = getApplicationContext();
                 PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);

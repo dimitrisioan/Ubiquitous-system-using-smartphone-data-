@@ -135,4 +135,23 @@ public class UsersDataModel {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "UsersDataModel{" +
+                "id=" + id +
+                ", device_interactive='" + device_interactive + '\'' +
+                ", display_state=" + display_state +
+                ", system_time='" + system_time + '\'' +
+                ", activity='" + activity + '\'' +
+                ", activity_conf=" + activity_conf +
+                ", location_type='" + location_type + '\'' +
+                ", location_id='" + location_id + '\'' +
+                ", location_conf=" + location_conf +
+                ", battery_level=" + battery_level +
+                ", battery_status='" + battery_status + '\'' +
+                ", network_type='" + network_type + '\'' +
+                ", notifs_active=" + notifs_active +
+                '}';
+    }
 }

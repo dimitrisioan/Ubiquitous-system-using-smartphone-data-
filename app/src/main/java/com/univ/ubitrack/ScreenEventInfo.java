@@ -20,6 +20,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -75,6 +76,9 @@ public class ScreenEventInfo {
         this.network_type = NetworkService.getNetworkType();
         addUsersDataToDB();
         Log.i("Data", toString());
+        DBHelper dbHelper = new DBHelper(context);
+        ArrayList<UsersDataModel> usersDataModels = dbHelper.getLastTwoUsersData();
+        Log.i("DB ArrayList", String.valueOf(usersDataModels.get(0)));
     }
 
     public void getLocation() {
