@@ -1,9 +1,13 @@
 package com.univ.ubitrack;
 
+import android.app.FragmentTransaction;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -15,19 +19,19 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
-public class DataTable extends Fragment {
+public class DataTableFragment extends Fragment {
     private TableLayout tableLayout;
     private ArrayList<UsersDataModel> usersDataModels;
     UsersDataModel screen_off_data, screen_on_data;
-
-    public DataTable() {
+    public DataTableFragment() {
         // Required empty public constructor
     }
 
-    public static DataTable newInstance(String param1, String param2) {
-        DataTable fragment = new DataTable();
+    public static DataTableFragment newInstance(String param1, String param2) {
+        DataTableFragment fragment = new DataTableFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -58,6 +62,7 @@ public class DataTable extends Fragment {
         return view;
     }
 
+
     public void addRowData(View view) {
         TableRow row;
         TextView textView1, textView2;
@@ -71,7 +76,6 @@ public class DataTable extends Fragment {
         textView2.setGravity(Gravity.CENTER);
         textView1.setTextColor(Color.BLACK);
         textView2.setTextColor(Color.BLACK);
-
         row.addView(textView1);
         row.addView(textView2);
 
@@ -227,4 +231,5 @@ public class DataTable extends Fragment {
         return usersDataModels.size() == 2;
     }
 }
+
 
