@@ -31,10 +31,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk" />
 
-        <activity android:name=".WelcomePage" />
-        <activity android:name=".SecondRegisterPage" />
-        <activity android:name=".FirstRegisterPage" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomePage" android:noHistory = "true"/>
+        <activity android:name=".SecondRegisterPage" android:noHistory = "true"/>
+        <activity android:name=".FirstRegisterPage" android:noHistory = "true"/>
+        <activity android:name=".MainActivity" android:noHistory = "true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
