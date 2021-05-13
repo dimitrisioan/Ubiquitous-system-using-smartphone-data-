@@ -17,13 +17,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 
 public class StatisticsFragment extends Fragment  {
     private Spinner sp_chart;
     private String CHART_SPINNER_DATA = "";
     DataTableFragment dataFragment;
     private Fragment fragment;
-
+    SwipeRefreshLayout refreshLayout;
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -50,17 +52,25 @@ public class StatisticsFragment extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         Spinner sp_chart = view.findViewById(R.id.sp_chart);
-
-        final SwipeRefreshLayout swipeRefreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
-            {
+        refreshLayout = view.findViewById(R.id.swipe_refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+         {
                 @Override
                 public void onRefresh()
                 {
-                    Toast.makeText(getContext(), "Refresh not implemented yet", Toast.LENGTH_SHORT).show();
-                    swipeRefreshLayout.setRefreshing(false);
+                    assert getFragmentManager() != null;
+                    getFragmentManager().beginTransaction().detach(dataFragment).attach(dataFragment).commit();
+
+//                    Fragment frag = new StatisticsFragment();
+//                    FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+//                    fragmentManager.beginTransaction().replace(R.id.parent_fragment_container, frag).commit();
+                    refreshLayout.setRefreshing(false);
+
                 }
+
             });
+
+
 
         String[] chartItems = getResources().getStringArray(R.array.chart_items);
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, chartItems);
