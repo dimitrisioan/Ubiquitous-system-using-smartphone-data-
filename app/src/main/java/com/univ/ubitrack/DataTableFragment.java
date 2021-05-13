@@ -1,5 +1,6 @@
 package com.univ.ubitrack;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Build;
@@ -63,6 +64,7 @@ public class DataTableFragment extends Fragment {
     }
 
 
+    @SuppressLint("SetTextI18n")
     public void addRowData(View view) {
         TableRow row;
         TextView textView1, textView2;
@@ -145,14 +147,14 @@ public class DataTableFragment extends Fragment {
         textView1 = new TextView(getContext());
         textView2 = new TextView(getContext());
         if (screen_on_data.getLocation_id() != null)
-            textView1.setText(String.valueOf(screen_on_data.getLocation_id().substring(0,8) + "..."));
+            textView1.setText(screen_on_data.getLocation_id().substring(0, 8));
         else
-            textView1.setText(String.valueOf("null"));
+            textView1.setText("null");
         textView1.setGravity(Gravity.CENTER);
         if (screen_on_data.getLocation_id() != null)
-            textView2.setText(String.valueOf(screen_off_data.getLocation_id().substring(0,8) + "..."));
+            textView2.setText(screen_off_data.getLocation_id().substring(0, 8));
         else
-            textView1.setText(String.valueOf("null"));
+            textView1.setText("null");
         textView2.setGravity(Gravity.CENTER);
         textView1.setTextColor(Color.BLACK);
         textView2.setTextColor(Color.BLACK);
@@ -198,9 +200,9 @@ public class DataTableFragment extends Fragment {
         row = view.findViewById(R.id.tv_network_type);
         textView1 = new TextView(getContext());
         textView2 = new TextView(getContext());
-        textView1.setText(String.valueOf(screen_on_data.getNetwork_type().substring(10, screen_on_data.getNetwork_type().length())));
+        textView1.setText(screen_on_data.getNetwork_type().substring(10));
         textView1.setGravity(Gravity.CENTER);
-        textView2.setText(String.valueOf(screen_off_data.getNetwork_type().substring(10, screen_off_data.getNetwork_type().length())));
+        textView2.setText(screen_off_data.getNetwork_type().substring(10));
         textView2.setGravity(Gravity.CENTER);
         textView1.setTextColor(Color.BLACK);
         textView2.setTextColor(Color.BLACK);
