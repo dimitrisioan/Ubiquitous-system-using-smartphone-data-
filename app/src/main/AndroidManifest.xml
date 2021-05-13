@@ -44,13 +44,12 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
         <service android:name=".AEScreenOnOffService">
             <intent-filter>
                 <action android:name="com.univ.api_training.AEScreenOnOffService" />
             </intent-filter>
         </service>
-<!--        <service android:name=".service.ActivityIntentService" android:exported="false"-->
-<!--            android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>-->
 
         <receiver android:name=".TransitionReceiver"
             android:permission="android.permission.ACTIVITY_RECOGNITION" />

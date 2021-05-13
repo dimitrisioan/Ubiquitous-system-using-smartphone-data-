@@ -166,9 +166,10 @@ public class ScreenEventInfo {
     private boolean addUsersDataToDB() {
         try {
             DBHelper dbHelper = new DBHelper(context);
-            UsersDataModel usersDataModel = new UsersDataModel(-1, this.device_interactive, this.display_state, this.system_time,
-                    this.activity, this.activity_conf, this.location_type, this.location_id, this.location_conf,
-                    this.battery_level, this.battery_status, this.network_type, this.notifs_active);
+            UsersDataModel usersDataModel = new UsersDataModel(-1, this.device_interactive,
+                    this.display_state, this.system_time, this.activity, this.activity_conf,
+                    this.location_type, this.location_id, this.location_conf, this.battery_level,
+                    this.battery_status, this.network_type, this.notifs_active);
             boolean success = dbHelper.addUsersData(usersDataModel);
             if (MainActivity.debugging == 1) {
                 Log.i("DB", String.valueOf(success));

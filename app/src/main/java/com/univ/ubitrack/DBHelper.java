@@ -178,9 +178,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 String battery_status = cursor.getString(10);
                 String network_type = cursor.getString(11);
                 int notifs_active = cursor.getInt(12);
-                usersDataModel = new UsersDataModel(uid, device_interactive, display_state, system_time,
-                        activity, activity_conf, location_type, location_id, location_conf, battery_level,
-                        battery_status, network_type, notifs_active);
+                usersDataModel = new UsersDataModel(uid, device_interactive, display_state,
+                        system_time,activity, activity_conf, location_type, location_id,
+                        location_conf, battery_level, battery_status, network_type, notifs_active);
                 usersData.add(usersDataModel);
                 if (MainActivity.debugging == 1) {
                     Log.i("DB Rows", usersDataModel.toString());
