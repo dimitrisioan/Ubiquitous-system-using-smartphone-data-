@@ -95,6 +95,7 @@ public class StatisticsFragment extends Fragment  {
     }
     public void setFragment(Fragment fragment){
         this.fragment = fragment;
+        assert getFragmentManager() != null;
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.parent_fragment_container,fragment);
         fragmentTransaction.commit();
