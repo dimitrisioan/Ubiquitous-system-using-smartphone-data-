@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             applicationFragments();
             startAEScreenOnOffService();
             startNetworkService();
-
+            ThingsBoard thingsBoard = new ThingsBoard(MainActivity.this);
             if(!checkForActivityPermission() || !checkForLocationPermission()){
                 openAppSettings();
                 Toast.makeText(getApplicationContext(), "Please the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
