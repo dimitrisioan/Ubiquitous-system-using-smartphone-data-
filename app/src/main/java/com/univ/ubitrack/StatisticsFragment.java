@@ -4,9 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.Objects;
+import android.widget.Toast;
 
 
 public class StatisticsFragment extends Fragment  {
     private Spinner sp_chart;
     private String CHART_SPINNER_DATA = "";
-    DataTable dataFragment;
+    DataTableFragment dataFragment;
+    private Fragment fragment;
 
     public StatisticsFragment() {
         // Required empty public constructor
@@ -37,7 +38,7 @@ public class StatisticsFragment extends Fragment  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataFragment = new DataTable();
+        dataFragment = new DataTableFragment();
 
 
     }
@@ -48,8 +49,19 @@ public class StatisticsFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-
         Spinner sp_chart = view.findViewById(R.id.sp_chart);
+
+        final SwipeRefreshLayout swipeRefreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+            {
+                @Override
+                public void onRefresh()
+                {
+                    Toast.makeText(getContext(), "Refresh not implemented yet", Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+
         String[] chartItems = getResources().getStringArray(R.array.chart_items);
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, chartItems);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -82,7 +94,7 @@ public class StatisticsFragment extends Fragment  {
         return view;
     }
     public void setFragment(Fragment fragment){
-
+        this.fragment = fragment;
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.parent_fragment_container,fragment);
         fragmentTransaction.commit();

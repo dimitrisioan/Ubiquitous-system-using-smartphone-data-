@@ -2,58 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_data_table"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".DataTable">
+    tools:context=".DataTableFragment">
 
     <ScrollView
+        android:fillViewport="true"
         android:id="@+id/layout"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dip"
-        android:fillViewport="true"
+        android:layout_width="match_parent"
         android:scrollbarStyle="outsideInset"
         android:scrollbars="horizontal|vertical">
 
         <HorizontalScrollView
             android:id="@+id/horizontalView"
-            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
+            android:layout_width="wrap_content"
             android:scrollbars="horizontal|vertical">
 
             <TableLayout
+                android:background="@android:color/white"
+                android:gravity="center_horizontal"
                 android:id="@+id/lastUsersDataTable"
-                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:stretchColumns="1"
-                android:background="@android:color/white">
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content">
 
                 <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/app_color">
+                    android:background="@color/app_color"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
 
                     <TextView
-                        android:layout_column="2"
                         android:gravity="center"
-                        android:paddingLeft="35dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="35dp"
+                        android:layout_column="2"
                         android:paddingBottom="10dp"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="35dp"
+                        android:paddingTop="10dp"
                         android:text="Screen On"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_column="3"
                         android:gravity="center"
-                        android:paddingLeft="35dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="35dp"
+                        android:layout_column="3"
                         android:paddingBottom="10dp"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="35dp"
+                        android:paddingTop="10dp"
                         android:text="Screen Off"
                         android:textColor="@color/white"
                         android:textSize="14sp"
@@ -61,15 +62,15 @@
                 </TableRow>
 
                 <View
-                    android:layout_width="match_parent"
+                    android:background="@android:color/black"
                     android:layout_height="1dp"
-                    android:background="@android:color/black" />
+                    android:layout_width="match_parent" />
 
                 <TableRow android:id="@+id/tv_device_interactive">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="device_interactive"
                         android:textColor="@color/black"
@@ -78,14 +79,14 @@
                 </TableRow>
 
                 <TableRow
+                    android:background="@color/table_row_color"
                     android:id="@+id/tv_display_state"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/table_row_color">
+                    android:layout_width="wrap_content">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="display_state"
                         android:textColor="@color/black"
@@ -96,8 +97,8 @@
                 <TableRow android:id="@+id/tv_system_time">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="system_time"
                         android:textColor="@color/black"
@@ -106,14 +107,14 @@
                 </TableRow>
 
                 <TableRow
+                    android:background="@color/table_row_color"
                     android:id="@+id/tv_activity"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/table_row_color">
+                    android:layout_width="wrap_content">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="activity"
                         android:textColor="@color/black"
@@ -124,60 +125,63 @@
                 <TableRow android:id="@+id/tv_activity_conf">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="activity_conf"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow
+                    android:background="@color/table_row_color"
                     android:id="@+id/tv_location_type"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/table_row_color">
+                    android:layout_width="wrap_content">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="location_type"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow android:id="@+id/tv_location_id">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="location_id"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow
+                    android:background="@color/table_row_color"
                     android:id="@+id/tv_location_conf"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/table_row_color">
+                    android:layout_width="wrap_content">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="location_conf"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
-                <TableRow android:id="@+id/tv_battery_level">
+                <TableRow
+                    android:id="@+id/tv_battery_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:layout_column="1"
@@ -186,51 +190,51 @@
                         android:text="battery_level"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow
+                    android:background="@color/table_row_color"
                     android:id="@+id/tv_battery_status"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/table_row_color">
+                    android:layout_width="wrap_content">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="battery_status"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow android:id="@+id/tv_network_type">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="network_type"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
                 <TableRow
+                    android:background="@color/table_row_color"
                     android:id="@+id/tv_notifs_active"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/table_row_color">
+                    android:layout_width="wrap_content">
 
                     <TextView
-                        android:layout_column="1"
                         android:gravity="left"
+                        android:layout_column="1"
                         android:padding="10dp"
                         android:text="notifs_active"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="normal" />
                 </TableRow>
 
 
