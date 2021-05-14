@@ -93,6 +93,51 @@ public class ThingsBoard {
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
+    public void addNewDevice(String device_name, String device_type){
+        String addDeviceURL = baseURL + "api/device";
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("name", device_name);
+            jsonBody.put("type", device_type);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String auth = sharedPreferences.getString("AUTH_TOKEN_KEY", "No key");
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, addDeviceURL, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String device_id = response.getJSONObject("id").getString("id");
+                            sharedPreferences.edit().putString(DEVICE_ID, device_id).apply();
+                            if (MainActivity.debugging == 1)
+                                Log.i("DEVICE", "Device Added with ID -> " + device_id);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                        Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                headers.put("X-Authorization", "Bearer " + auth);
+                return headers;
+            }
+        };
+        VolleyController.getInstance(context).addToQueue(jsonObjReq);
+    }
+
     public void getLastAddedDevice(int teamNumber){
         String getLastAddedDeviceURL = baseURL + "api/tenant/devices?textSearch=Participant_" + teamNumber + "&sortProperty=name&sortOrder=desc&pageSize=10&page=0";
 
@@ -108,6 +153,45 @@ public class ThingsBoard {
                             sharedPreferences.edit().putString(LAST_ADDED_DEVICE_NAME, device).apply();
                             if (MainActivity.debugging == 1)
                                 Log.i("DEVICE", "Last added device name -> " + device);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                        Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                headers.put("X-Authorization", "Bearer " + auth);
+                return headers;
+            }
+        };
+        VolleyController.getInstance(context).addToQueue(jsonObjReq);
+    }
+
+    public void getDeviceId(String device_name) {
+        String checkDeviceURL = baseURL + "api/tenant/devices?deviceName=" + device_name;
+
+        JSONObject jsonBody = new JSONObject();
+
+        String auth = sharedPreferences.getString("AUTH_TOKEN_KEY", "No key");
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, checkDeviceURL, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String device_id = response.getJSONObject("id").getString("id");
+                            sharedPreferences.edit().putString(DEVICE_ID, device_id).apply();
+                            if (MainActivity.debugging == 1)
+                                Log.i("DEVICE", "Device ID -> " + device_id);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
