@@ -23,9 +23,14 @@ import java.util.Objects;
 public class StatisticsFragment extends Fragment  {
     private Spinner sp_chart;
     private String CHART_SPINNER_DATA = "";
+
     DataTableFragment dataFragment;
+    FirstChart chart1Fragment;
+    SecondChart chart2Fragment;
+    ThirdChart chart3Fragment;
     private Fragment fragment;
     SwipeRefreshLayout refreshLayout;
+
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -41,7 +46,9 @@ public class StatisticsFragment extends Fragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dataFragment = new DataTableFragment();
-
+        chart1Fragment = new FirstChart();
+        chart2Fragment = new SecondChart();
+        chart3Fragment = new ThirdChart();
 
     }
 
@@ -86,15 +93,15 @@ public class StatisticsFragment extends Fragment  {
                 if (i == 0) {
                         setFragment(dataFragment);
                 }
-//                if(i == 1) {
-//                    setFragment(chart1Fragment);
-//                }
-//                if(i == 2) {
-//                    setFragment(chart2Fragment);
-//                }
-//                if (i == 3) {
-//                    setFragment(chart3Fragment);
-//                }
+                if (i == 1) {
+                        setFragment(chart1Fragment);
+                }
+                if (i == 2) {
+                      setFragment(chart2Fragment);
+                }
+                if (i == 3) {
+                      setFragment(chart3Fragment);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
