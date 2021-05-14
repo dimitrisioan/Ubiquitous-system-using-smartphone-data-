@@ -1,6 +1,7 @@
 package com.univ.ubitrack;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -66,7 +67,13 @@ public class StatisticsFragment extends Fragment  {
                 public void onRefresh()
                 {
                     assert getFragmentManager() != null;
-                    getFragmentManager().beginTransaction().detach(dataFragment).attach(dataFragment).commit();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        ft.setReorderingAllowed(false);
+                    }
+                    ft.detach(dataFragment).attach(dataFragment).commit();
+
+                    
 
 //                    Fragment frag = new StatisticsFragment();
 //                    FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
