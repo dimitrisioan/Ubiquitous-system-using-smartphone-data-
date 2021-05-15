@@ -1,6 +1,7 @@
 package com.univ.ubitrack;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
@@ -153,6 +154,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void startAEScreenOnOffService() {
         Context context = getApplicationContext();
+        Constants.SCREEN_ON_OFF_SERVICE = true;
+        if (serviceIntent == null) {
+            serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
+            startService(serviceIntent);
+        }
+    }
+
+    private void stopAEScreenOnOffService() {
+        Constants.SCREEN_ON_OFF_SERVICE = false;
         if (serviceIntent == null) {
             serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
             startService(serviceIntent);
@@ -215,16 +225,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
             @Override
             public void onReselectItem(MeowBottomNavigation.Model item) {
-
             }
         });
 
-        Switch onOffSwitch = (Switch)  findViewById(R.id.switch_home);
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch onOffSwitch = (Switch) findViewById(R.id.switch_home);
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.v("Switch State=", ""+isChecked);
+                Log.i("Switch State=", String.valueOf(isChecked));
             }
 
         });
