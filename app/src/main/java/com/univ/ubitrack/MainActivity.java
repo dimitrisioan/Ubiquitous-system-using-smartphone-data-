@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Intent serviceIntent = null;
     DeviceModel device;
     MeowBottomNavigation bottomNavigation;
-    Switch mySwitch;
+    Switch onOffSwitch;
     private ActivityRecognitionClient mActivityRecognitionClient;
 
 
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Switch onOffSwitch = (Switch)  findViewById(R.id.switch_home);
+        onOffSwitch.findViewById(R.id.switch_home);
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
