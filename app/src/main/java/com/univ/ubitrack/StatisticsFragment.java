@@ -46,16 +46,18 @@ public class StatisticsFragment extends Fragment  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataFragment = new DataTableFragment();
-        chart1Fragment = new FirstChart();
-        chart2Fragment = new SecondChart();
-        chart3Fragment = new ThirdChart();
+
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        dataFragment = new DataTableFragment();
+        chart1Fragment = new FirstChart();
+        chart2Fragment = new SecondChart();
+        chart3Fragment = new ThirdChart();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
@@ -71,7 +73,7 @@ public class StatisticsFragment extends Fragment  {
                     if (Build.VERSION.SDK_INT >= 26) {
                         ft.setReorderingAllowed(false);
                     }
-                    ft.detach(dataFragment).attach(dataFragment).commit();
+                    ft.detach(fragment).attach(fragment).commit();
 
                     
 
