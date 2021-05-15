@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();
+            thingsBoard.getDeviceId(device.getDevice_id());
         } else {
             goToGetStarted();
             boolean isNotificationServiceRunning = isNotificationServiceRunning();
