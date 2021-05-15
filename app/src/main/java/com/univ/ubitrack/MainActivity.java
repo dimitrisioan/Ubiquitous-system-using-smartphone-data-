@@ -11,6 +11,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Intent serviceIntent = null;
     DeviceModel device;
     MeowBottomNavigation bottomNavigation;
+    Switch mySwitch;
     private ActivityRecognitionClient mActivityRecognitionClient;
 
 
@@ -213,6 +217,16 @@ public class MainActivity extends AppCompatActivity {
             public void onReselectItem(MeowBottomNavigation.Model item) {
 
             }
+        });
+
+        Switch onOffSwitch = (Switch)  findViewById(R.id.switch_home);
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.v("Switch State=", ""+isChecked);
+            }
+
         });
     }
 
