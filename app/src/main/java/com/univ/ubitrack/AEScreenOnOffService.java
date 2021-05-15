@@ -85,7 +85,7 @@ public class AEScreenOnOffService extends Service {
     @Override
     public void onDestroy() {
         Log.i("ScreenOnOff", "Service  destroy");
-        Toast.makeText(getBaseContext(), "Service Destroyed", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getBaseContext(), "Service Destroyed", Toast.LENGTH_SHORT).show();
         if(mReceiver != null)
             unregisterReceiver(mReceiver);
 //        super.onDestroy();

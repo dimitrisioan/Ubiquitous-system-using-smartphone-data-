@@ -1,7 +1,6 @@
 package com.univ.ubitrack;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
@@ -12,9 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -39,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
     Intent serviceIntent = null;
     DeviceModel device;
     MeowBottomNavigation bottomNavigation;
-    Switch onOffSwitch;
     private ActivityRecognitionClient mActivityRecognitionClient;
-
+//    static SharedPreferences switch_home;
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
@@ -62,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (isPhoneRegistered == 1) {
             applicationFragments();
-            startAEScreenOnOffService();
+//            switch_home = getApplicationContext().getSharedPreferences(getApplicationContext().getPackageName(), Context.MODE_PRIVATE);
+//            switch_home.getBoolean("service_status", true);
+            if (Constants.SCREEN_ON_OFF_SERVICE)
+                startAEScreenOnOffService();
             if(!checkForActivityPermission() || !checkForLocationPermission()){
                 openAppSettings();
                 Toast.makeText(getApplicationContext(), "Please give the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
@@ -152,17 +150,9 @@ public class MainActivity extends AppCompatActivity {
         return enabledNotificationListeners != null && enabledNotificationListeners.contains(packageName);
     }
 
-    private void startAEScreenOnOffService() {
+    public void startAEScreenOnOffService() {
         Context context = getApplicationContext();
         Constants.SCREEN_ON_OFF_SERVICE = true;
-        if (serviceIntent == null) {
-            serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
-            startService(serviceIntent);
-        }
-    }
-
-    private void stopAEScreenOnOffService() {
-        Constants.SCREEN_ON_OFF_SERVICE = false;
         if (serviceIntent == null) {
             serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
             startService(serviceIntent);
@@ -226,16 +216,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReselectItem(MeowBottomNavigation.Model item) {
             }
-        });
-
-        onOffSwitch.findViewById(R.id.switch_home);
-        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i("Switch State=", String.valueOf(isChecked));
-            }
-
         });
     }
 

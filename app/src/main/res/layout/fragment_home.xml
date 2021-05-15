@@ -5,19 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/logo_ubitrack_big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="Ubitrack_Logo"
+        android:layout_marginTop="100px"
+        android:src="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af"
+        app:srcCompat="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af"
+        tools:srcCompat="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/settingFont"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
         android:textStyle="bold"
         android:thumb="@drawable/thumb"
+        android:textOn="ON"
+        android:textOff="OFF"
         app:showText="true"
         app:track="@drawable/track" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FFFFFF"
+            android:text="You have contributed "
+            android:textColor="@color/settingFont"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/contributed_records"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FFFFFF"
+            android:text="562"
+            android:textColor="@color/settingFont"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FFFFFF"
+            android:text=" records so far."
+            android:textColor="@color/settingFont"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#FFFFFF"
+            android:text="@string/emoji"
+            android:textColor="@color/app_color"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
 
 </LinearLayout>
 
