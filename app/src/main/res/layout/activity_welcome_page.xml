@@ -10,28 +10,37 @@
     android:background="@color/white"
     tools:context=".WelcomePage">
 
+    <LinearLayout
+        android:id="@+id/first_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp">
+
     <ImageView
         android:id="@+id/logo_ubitrack_big"
-        android:layout_width="238dp"
-        android:layout_height="212dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="250dp"
+        android:layout_height="220dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/todo"
+        android:layout_marginTop="10dp"
         android:src="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af"
-        tools:srcCompat="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af" />
+        tools:srcCompat="@drawable/_44ad2cf3d3f4ad7923ea92b082b89af"
+        android:contentDescription="Ubitrack_Logo" />
 
     <TextView
         android:id="@+id/tv_welcome_msg"
-        android:layout_width="137dp"
-        android:layout_height="41dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:text="Welcome!"
+        android:layout_marginTop="30dp"
+        android:text="Welcome to UbiTrack!"
         android:textColor="#2FCC76"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -53,13 +62,13 @@
         app:layout_constraintHorizontal_bias="0.709"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
+        </LinearLayout>
     <Button
         android:id="@+id/get_started_btn"
         android:layout_width="200dp"
-        android:layout_height="70dp"
+        android:layout_height="65dp"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:shadowColor="#FFFFFF"
         android:text="@string/welcome"
         android:textColor="#FFFFFF"
@@ -71,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/first_container" />
 
 </LinearLayout>
 
