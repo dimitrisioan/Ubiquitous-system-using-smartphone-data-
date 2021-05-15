@@ -110,8 +110,10 @@ public class DataTableFragment extends Fragment {
         textView2 = new TextView(getContext());
         textView1.setText(String.valueOf(screen_on_data.getActivity()));
         textView1.setGravity(Gravity.CENTER);
+        textView1.setTextSize(10);
         textView2.setText(String.valueOf(screen_off_data.getActivity()));
         textView2.setGravity(Gravity.CENTER);
+        textView2.setTextSize(10);
         textView1.setTextColor(Color.BLACK);
         textView2.setTextColor(Color.BLACK);
         row.addView(textView1);
@@ -204,7 +206,7 @@ public class DataTableFragment extends Fragment {
         textView1.setTextSize(10);
         textView1.setGravity(Gravity.CENTER);
         textView2.setText(screen_off_data.getNetwork_type());
-        textView1.setTextSize(10);
+        textView2.setTextSize(10);
         textView2.setGravity(Gravity.CENTER);
         textView1.setTextColor(Color.BLACK);
         textView2.setTextColor(Color.BLACK);
