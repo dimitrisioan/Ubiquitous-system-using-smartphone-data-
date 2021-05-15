@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (isPhoneRegistered == 1) {
             applicationFragments();
-//            switch_home = getApplicationContext().getSharedPreferences(getApplicationContext().getPackageName(), Context.MODE_PRIVATE);
-//            switch_home.getBoolean("service_status", true);
             startAEScreenOnOffService();
             if(!checkForActivityPermission() || !checkForLocationPermission()){
                 openAppSettings();

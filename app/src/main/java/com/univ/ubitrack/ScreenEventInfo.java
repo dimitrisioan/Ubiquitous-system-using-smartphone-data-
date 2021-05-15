@@ -64,12 +64,20 @@ public class ScreenEventInfo {
         battery = new Battery(context);
         notifications = new Notifications(context);
         Places.initialize(context, keys[random.nextInt(keys.length)]);
-
+        this.system_time = getCurrentTime();
         placesClient = Places.createClient(context);
-        if (NetworkService.isNetworkAvailable())
+        if (NetworkService.isNetworkAvailable() && checkIfNewLocation())
             getLocation();
-        else
-            afterComplete(true);
+        else if (!NetworkService.isNetworkAvailable()){
+            this.location_conf = (float) 0.0;
+            this.location_id = null;
+            this.location_type = null;
+        }else{
+            this.location_conf = Constants.LAST_LOCATION_CONF;
+            this.location_type = Constants.LAST_LOCATION_TYPE;
+            this.location_id = Constants.LAST_LOCATION_ID;
+        }
+        afterComplete(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -78,7 +86,6 @@ public class ScreenEventInfo {
         this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
         this.battery_level = battery.getBatteryPercentage();
         this.battery_status = battery.getBatteryStatus();
-        this.system_time = getCurrentTime();
         this.device_interactive = getDeviceInteractive();
         this.notifs_active = notifications.getNotificationCount();
         this.network_type = NetworkService.getNetworkType();
@@ -95,6 +102,11 @@ public class ScreenEventInfo {
         }else{
             this.added_thingsboard = 0;
         }
+        Constants.LAST_TIMESTAMP = this.system_time;
+        Constants.LAST_ACTIVITY = this.activity;
+        Constants.LAST_LOCATION_TYPE = this.location_type;
+        Constants.LAST_LOCATION_ID = this.location_id;
+        Constants.LAST_LOCATION_CONF = this.location_conf;
         addUsersDataToDB();
     }
 
@@ -216,5 +228,33 @@ public class ScreenEventInfo {
             if (MainActivity.debugging == 1)
                 e.printStackTrace();
         }
+    }
+
+    private boolean checkIfNewLocation(){
+        String lastTimestamp = Constants.LAST_TIMESTAMP;
+        String lastActivity = Constants.LAST_ACTIVITY;
+        String lastLocationType = Constants.LAST_LOCATION_TYPE;
+        String lastLocationId = Constants.LAST_LOCATION_ID;
+        float lastLocationConf = Constants.LAST_LOCATION_CONF;
+
+        Log.i("Data", lastTimestamp + lastActivity + lastLocationType + lastActivity);
+
+        if (lastLocationConf != 0.0 && lastLocationId != null && lastLocationType != null){
+            if (lastTimestamp != null && lastActivity != null) {
+                long currentTimestamp = Long.parseLong(this.system_time);
+                long lastTimestampInt = Long.parseLong(lastTimestamp);
+                long diff = lastTimestampInt;
+                Log.i("Diff", String.valueOf(diff));
+                if (diff <= 10 && lastActivity.equals("Still")){
+                    return false;
+                }else if (diff <= 40 && lastActivity.equals("Still") && this.activity.equals("Still")){
+                    return false;
+                }else {
+                    return true;
+                }
+            }
+        }
+
+        return true;
     }
 }

@@ -45,18 +45,18 @@ public class SecondRegisterPage extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     gender = getSelectedRadio();
+                    if (NetworkService.isNetworkAvailable()) {
+                        ThingsBoard thingsBoard = new ThingsBoard(getApplicationContext());
+                        thingsBoard.addNewDevice(Integer.parseInt(recruitingTeam), ageRange, gender);
+                        openApp();
+                        if(!checkForActivityPermission() || !checkForLocationPermission()){
+                            openAppSettings();
+                        }
+                    }else {
+                        Toast.makeText(SecondRegisterPage.this, "You must be connected to network in order to continue", Toast.LENGTH_SHORT).show();
+                    }
                 }catch (Exception e) {
                     Toast.makeText(SecondRegisterPage.this, "Choose your Gender", Toast.LENGTH_SHORT).show();
-                }
-                if (NetworkService.isNetworkAvailable()) {
-                    ThingsBoard thingsBoard = new ThingsBoard(getApplicationContext());
-                    thingsBoard.addNewDevice(Integer.parseInt(recruitingTeam), ageRange, gender);
-                    openApp();
-                    if(!checkForActivityPermission() || !checkForLocationPermission()){
-                        openAppSettings();
-                    }
-                }else {
-                    Toast.makeText(SecondRegisterPage.this, "You must be connected to network in order to continue", Toast.LENGTH_SHORT).show();
                 }
             }
         });
