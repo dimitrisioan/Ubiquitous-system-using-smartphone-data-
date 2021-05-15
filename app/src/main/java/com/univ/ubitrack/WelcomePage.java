@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class WelcomePage extends AppCompatActivity {
 
@@ -19,8 +20,11 @@ public class WelcomePage extends AppCompatActivity {
         get_started_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                goToFirstRegisterPage();
+                if (NetworkService.isNetworkAvailable()) {
+                    goToFirstRegisterPage();
+                }else {
+                    Toast.makeText(WelcomePage.this, "You must be connected to network in order to continue", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
