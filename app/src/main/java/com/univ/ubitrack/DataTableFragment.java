@@ -151,7 +151,7 @@ public class DataTableFragment extends Fragment {
         else
             textView1.setText("null");
         textView1.setGravity(Gravity.CENTER);
-        if (screen_on_data.getLocation_id() != null)
+        if (screen_off_data.getLocation_id() != null)
             textView2.setText(screen_off_data.getLocation_id().substring(0, 8));
         else
             textView2.setText("null");

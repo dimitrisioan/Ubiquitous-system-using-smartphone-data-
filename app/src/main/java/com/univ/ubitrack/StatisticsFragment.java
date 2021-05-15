@@ -1,6 +1,7 @@
 package com.univ.ubitrack;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,9 +24,14 @@ import java.util.Objects;
 public class StatisticsFragment extends Fragment  {
     private Spinner sp_chart;
     private String CHART_SPINNER_DATA = "";
+
     DataTableFragment dataFragment;
+    FirstChart chart1Fragment;
+    SecondChart chart2Fragment;
+    ThirdChart chart3Fragment;
     private Fragment fragment;
     SwipeRefreshLayout refreshLayout;
+
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -40,7 +46,6 @@ public class StatisticsFragment extends Fragment  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataFragment = new DataTableFragment();
 
 
     }
@@ -48,6 +53,11 @@ public class StatisticsFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        dataFragment = new DataTableFragment();
+        chart1Fragment = new FirstChart();
+        chart2Fragment = new SecondChart();
+        chart3Fragment = new ThirdChart();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
@@ -59,7 +69,13 @@ public class StatisticsFragment extends Fragment  {
                 public void onRefresh()
                 {
                     assert getFragmentManager() != null;
-                    getFragmentManager().beginTransaction().detach(dataFragment).attach(dataFragment).commit();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        ft.setReorderingAllowed(false);
+                    }
+                    ft.detach(fragment).attach(fragment).commit();
+
+                    
 
 //                    Fragment frag = new StatisticsFragment();
 //                    FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
@@ -86,15 +102,15 @@ public class StatisticsFragment extends Fragment  {
                 if (i == 0) {
                         setFragment(dataFragment);
                 }
-//                if(i == 1) {
-//                    setFragment(chart1Fragment);
-//                }
-//                if(i == 2) {
-//                    setFragment(chart2Fragment);
-//                }
-//                if (i == 3) {
-//                    setFragment(chart3Fragment);
-//                }
+                if (i == 1) {
+                        setFragment(chart1Fragment);
+                }
+                if (i == 2) {
+                      setFragment(chart2Fragment);
+                }
+                if (i == 3) {
+                      setFragment(chart3Fragment);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
