@@ -20,6 +20,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +41,7 @@ public class ScreenEventInfo {
     private String battery_status;
     private String network_type;
     private int notifs_active;
+    private int added_thingsboard;
 
     private Context context;
     private PowerManager powerManager;
@@ -65,6 +67,8 @@ public class ScreenEventInfo {
         placesClient = Places.createClient(context);
         if (NetworkService.isNetworkAvailable())
             getLocation();
+        else
+            afterComplete(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -77,13 +81,16 @@ public class ScreenEventInfo {
         this.device_interactive = getDeviceInteractive();
         this.notifs_active = notifications.getNotificationCount();
         this.network_type = NetworkService.getNetworkType();
-        if (this.network_type.equals("None"));
+        if (NetworkService.isNetworkAvailable()) {
             ThingsBoard.addDeviceTelemetry(device_interactive, display_state, system_time, activity,
                     activity_conf, location_type, location_id, location_conf, battery_level,
                     battery_status, network_type, notifs_active);
+            this.added_thingsboard = 1;
+            addRemainingData();
+        }else{
+            this.added_thingsboard = 0;
+        }
         addUsersDataToDB();
-//        Log.i("Data", toString());
-
     }
 
     public void getLocation() {
@@ -106,7 +113,6 @@ public class ScreenEventInfo {
             this.location_type = Objects.requireNonNull(place.getPlace().getTypes()).get(0).toString();
             if (MainActivity.debugging == 1)
                 Log.i("Location", location_id + ", " + location_type + ", " + location_conf);
-//            Maybe it can be done better
             afterComplete(task.isComplete());
         } else {
             Exception exception = task.getException();
@@ -173,7 +179,7 @@ public class ScreenEventInfo {
             UsersDataModel usersDataModel = new UsersDataModel(-1, this.device_interactive,
                     this.display_state, this.system_time, this.activity, this.activity_conf,
                     this.location_type, this.location_id, this.location_conf, this.battery_level,
-                    this.battery_status, this.network_type, this.notifs_active);
+                    this.battery_status, this.network_type, this.notifs_active, this.added_thingsboard);
             boolean success = dbHelper.addUsersData(usersDataModel);
             if (MainActivity.debugging == 1) {
                 Log.i("DB", String.valueOf(success));
@@ -184,5 +190,26 @@ public class ScreenEventInfo {
             Toast.makeText(context, "An Error Occurred", Toast.LENGTH_SHORT).show();
         }
         return false;
+    }
+
+    private void addRemainingData() {
+        DBHelper dbHelper = new DBHelper(context);
+        ArrayList<UsersDataModel> usersDataModels;
+        try {
+            usersDataModels = dbHelper.getUsersDataForThingsBoard();
+            Log.i("Data", String.valueOf(usersDataModels.size()));
+            for (int i = 0; i <= usersDataModels.size() - 1; i++){
+                UsersDataModel data = usersDataModels.get(i);
+                ThingsBoard.addDeviceTelemetry(data.getDevice_interactive(), data.getDisplay_state(),
+                        data.getSystem_time(), data.getActivity(), data.getActivity_conf(),
+                        data.getLocation_type(), data.getLocation_id(), data.getLocation_conf(),
+                        data.getBattery_level(), data.getBattery_status(), data.getNetwork_type(),
+                        data.getNotifs_active());
+                boolean success = dbHelper.updateThinsBoardStatus(data.getId());
+            }
+        } catch (Exception e) {
+            if (MainActivity.debugging == 1)
+                e.printStackTrace();
+        }
     }
 }

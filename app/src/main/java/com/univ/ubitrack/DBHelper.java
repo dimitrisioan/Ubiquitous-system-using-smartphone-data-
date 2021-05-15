@@ -34,6 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NOTIFS_ACTIVE = "notifs_active";
     private static final String COLUMN_DEVICE_INTERACTIVE = "device_interactive";
     private static final String COLUMN_NETWORK_TYPE = "network_type";
+    private static final String COLUMN_ADDED_THINKSBOARD = "thinksboard_added";
 
     public DBHelper(@Nullable Context context) {
         super(context, "ubitrack", null, 1);
@@ -66,7 +67,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_BATTERY_LEVEL + " INTEGER DEFAULT -1, " +
                 COLUMN_BATTERY_STATUS + " TEXT DEFAULT 'unknown', " +
                 COLUMN_NETWORK_TYPE + " TEXT DEFAULT 'unknown', " +
-                COLUMN_NOTIFS_ACTIVE + " INTEGER DEFAULT -1)";
+                COLUMN_NOTIFS_ACTIVE + " INTEGER DEFAULT -1, " +
+                COLUMN_ADDED_THINKSBOARD + " INTEGER DEFAULT 0)";
 
         db.execSQL(createDeviceTableStatement);
         db.execSQL(createUsersDataTableStatement);
@@ -108,6 +110,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_BATTERY_STATUS, usersDataModel.getBattery_status());
         contentValues.put(COLUMN_NETWORK_TYPE, usersDataModel.getNetwork_type());
         contentValues.put(COLUMN_NOTIFS_ACTIVE, usersDataModel.getNotifs_active());
+        contentValues.put(COLUMN_ADDED_THINKSBOARD, usersDataModel.getAdded_thinksboard());
 
         long insert = db.insert(USERS_DATA_TABLE, null, contentValues);
         return insert != -1;
@@ -178,9 +181,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 String battery_status = cursor.getString(10);
                 String network_type = cursor.getString(11);
                 int notifs_active = cursor.getInt(12);
+                int added_thinksboard = cursor.getInt(13);
                 usersDataModel = new UsersDataModel(uid, device_interactive, display_state,
                         system_time,activity, activity_conf, location_type, location_id,
-                        location_conf, battery_level, battery_status, network_type, notifs_active);
+                        location_conf, battery_level, battery_status, network_type, notifs_active, added_thinksboard);
                 usersData.add(usersDataModel);
                 if (MainActivity.debugging == 1) {
                     Log.i("DB Rows", usersDataModel.toString());
@@ -189,5 +193,51 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return usersData;
+    }
+
+    public ArrayList<UsersDataModel> getUsersDataForThingsBoard() {
+        String selectUsersData = "SELECT * FROM " + USERS_DATA_TABLE + " WHERE thinksboard_added = 0 ORDER BY + " + COLUMN_UID + " DESC LIMIT 5";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ArrayList<UsersDataModel> usersData = new ArrayList<UsersDataModel>();
+
+        try (Cursor cursor = db.rawQuery(selectUsersData, null)) {
+            while (cursor.moveToNext()) {
+                UsersDataModel usersDataModel = null;
+                int uid = cursor.getInt(0);
+                String device_interactive = cursor.getString(1);
+                int display_state = cursor.getInt(2);
+                String system_time = cursor.getString(3);
+                String activity = cursor.getString(4);
+                float activity_conf = cursor.getFloat(5);
+                String location_type = cursor.getString(6);
+                String location_id = cursor.getString(7);
+                float location_conf = cursor.getFloat(8);
+                int battery_level = cursor.getInt(9);
+                String battery_status = cursor.getString(10);
+                String network_type = cursor.getString(11);
+                int notifs_active = cursor.getInt(12);
+                int added_thinksboard = cursor.getInt(13);
+                usersDataModel = new UsersDataModel(uid, device_interactive, display_state,
+                        system_time,activity, activity_conf, location_type, location_id,
+                        location_conf, battery_level, battery_status, network_type, notifs_active, added_thinksboard);
+                usersData.add(usersDataModel);
+                if (MainActivity.debugging == 1) {
+                    Log.i("DB Rows", usersDataModel.toString());
+                }
+            }
+        }
+        db.close();
+        return usersData;
+    }
+
+    public boolean updateThinsBoardStatus(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COLUMN_ADDED_THINKSBOARD, 1);
+
+        long update = db.update(USERS_DATA_TABLE, contentValues, "uid = ?", new String[]{String.valueOf(id)});
+        return update != -1;
     }
 }

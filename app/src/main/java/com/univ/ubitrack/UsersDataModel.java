@@ -15,8 +15,12 @@ public class UsersDataModel {
     private String battery_status;
     private String network_type;
     private int notifs_active;
+    private int added_thinksboard;
 
-    public UsersDataModel(int id, String device_interactive, int display_state, String system_time, String activity, float activity_conf, String location_type, String location_id, float location_conf, int battery_level, String battery_status, String network_type, int notifs_active) {
+    public UsersDataModel(int id, String device_interactive, int display_state, String system_time,
+                          String activity, float activity_conf, String location_type, String location_id,
+                          float location_conf, int battery_level, String battery_status, String network_type,
+                          int notifs_active, int added_thinksboard) {
         this.id = id;
         this.device_interactive = device_interactive;
         this.display_state = display_state;
@@ -30,6 +34,7 @@ public class UsersDataModel {
         this.battery_status = battery_status;
         this.network_type = network_type;
         this.notifs_active = notifs_active;
+        this.added_thinksboard = added_thinksboard;
     }
 
     public String getDevice_interactive() {
@@ -38,6 +43,14 @@ public class UsersDataModel {
 
     public void setDevice_interactive(String device_interactive) {
         this.device_interactive = device_interactive;
+    }
+
+    public int getAdded_thinksboard() {
+        return added_thinksboard;
+    }
+
+    public void setAdded_thinksboard(int added_thinksboard) {
+        this.added_thinksboard = added_thinksboard;
     }
 
     public int getId() {
