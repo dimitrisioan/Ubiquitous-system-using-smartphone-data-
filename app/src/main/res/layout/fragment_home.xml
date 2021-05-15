@@ -29,8 +29,8 @@
         android:layout_marginTop="100dp"
         android:textStyle="bold"
         android:thumb="@drawable/thumb"
-        android:textOn="ON"
-        android:textOff="OFF"
+        android:textOn="@string/on"
+        android:textOff="@string/off"
         app:showText="true"
         app:track="@drawable/track" />
 
