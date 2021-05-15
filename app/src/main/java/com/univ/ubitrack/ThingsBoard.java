@@ -22,10 +22,12 @@ public class ThingsBoard {
     public static final String TAG = "ThingsBoard";
     private static final String baseURL = "http://150.140.142.67:8082/";
     private static final String AUTH_TOKEN_KEY = "AUTH_TOKEN_KEY";
+    private static final String REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY";
     private static final String DEVICE_ID = "DEVICE_ID";
     private static final String CREDENTIALS_ID = "CREDENTIALS_ID";
     private static final String LAST_ADDED_DEVICE_NAME = "LAST_ADDED_DEVICE_NAME";
     private String authToken;
+    private String refreshToken;
     private String deviceId;
     private String credentialsId;
     private String lastAddedDeviceName;
@@ -40,6 +42,7 @@ public class ThingsBoard {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         authToken = sharedPreferences.getString(AUTH_TOKEN_KEY, "NO_KEY");
+        refreshToken = sharedPreferences.getString(REFRESH_TOKEN_KEY, "NO_KEY");
         deviceId = sharedPreferences.getString(DEVICE_ID, "NO_ID");
         credentialsId = sharedPreferences.getString(CREDENTIALS_ID, "NO_ID");
         lastAddedDeviceName = sharedPreferences.getString(LAST_ADDED_DEVICE_NAME, "NO_NAME");
@@ -66,9 +69,12 @@ public class ThingsBoard {
 
                         try {
                             authToken = response.getString("token");
+                            refreshToken = response.getString("refreshToken");
                             sharedPreferences.edit().putString(AUTH_TOKEN_KEY, authToken).apply();
+                            sharedPreferences.edit().putString(REFRESH_TOKEN_KEY, refreshToken).apply();
                             if (MainActivity.debugging == 1)
                                 Log.i(TAG, authToken);
+                                Log.i(TAG, refreshToken);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -93,7 +99,7 @@ public class ThingsBoard {
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public void addNewDevice(String device_name, String device_type){
+    public void addNewDevice(String device_name, String device_type, String age, String gender, int team){
         String addDeviceURL = baseURL + "api/device";
 
         JSONObject jsonBody = new JSONObject();
@@ -112,6 +118,7 @@ public class ThingsBoard {
                         try {
                             String device_id = response.getJSONObject("id").getString("id");
                             sharedPreferences.edit().putString(DEVICE_ID, device_id).apply();
+                            getDeviceCredentials(device_id, age, gender, team);
                             if (MainActivity.debugging == 1)
                                 Log.i("DEVICE", "Device Added with ID -> " + device_id);
                         } catch (JSONException e) {
@@ -138,8 +145,9 @@ public class ThingsBoard {
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public void getLastAddedDevice(int teamNumber){
+    public void getLastAddedDevice(int teamNumber, String age, String gender){
         String getLastAddedDeviceURL = baseURL + "api/tenant/devices?textSearch=Participant_" + teamNumber + "&sortProperty=name&sortOrder=desc&pageSize=10&page=0";
+        String lastAddedDevice = "";
 
         JSONObject jsonBody = new JSONObject();
 
@@ -151,6 +159,10 @@ public class ThingsBoard {
                         try {
                             String device = response.getJSONArray("data").getJSONObject(0).getString("name");
                             sharedPreferences.edit().putString(LAST_ADDED_DEVICE_NAME, device).apply();
+                            int deviceNumber = Integer.parseInt(device.substring(device.length() - 1)) + 1;
+                            String nextDevice = "Participant_" + teamNumber + "_" + deviceNumber;
+                            addNewDevice(nextDevice, "Participant", age, gender, teamNumber);
+                            Utilities.addDeviseToDB(context, teamNumber, age, gender, nextDevice);
                             if (MainActivity.debugging == 1)
                                 Log.i("DEVICE", "Last added device name -> " + device);
                         } catch (JSONException e) {
@@ -163,6 +175,9 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        if (error.networkResponse.statusCode == 401){
+                            refreshToken();
+                        }
                     }
                 }) {
             @Override
@@ -202,6 +217,9 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        if (error.networkResponse.statusCode == 401){
+                            refreshToken();
+                        }
                     }
                 }) {
             @Override
@@ -237,6 +255,9 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        if (error.networkResponse.statusCode == 401){
+                            refreshToken();
+                        }
                     }
                 }) {
             @Override
@@ -276,6 +297,9 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        if (error.networkResponse.statusCode == 401){
+                            refreshToken();
+                        }
                     }
                 }) {
             @Override
@@ -290,7 +314,7 @@ public class ThingsBoard {
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public void getDeviceCredentials(String deviceID) {
+    public void getDeviceCredentials(String deviceID, String age, String gender, int team) {
         String checkDeviceURL = baseURL + "api/device/";
 
         JSONObject jsonBody = new JSONObject();
@@ -303,6 +327,7 @@ public class ThingsBoard {
                         try {
                             String credentialsId = response.getString("credentialsId");
                             sharedPreferences.edit().putString(CREDENTIALS_ID, credentialsId).apply();
+                            addDeviceAttributes(age, gender, team);
                             if (MainActivity.debugging == 1)
                                 Log.i("DEVICE", "Credentials ID -> " + credentialsId);
                         } catch (JSONException e) {
@@ -315,6 +340,9 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        if (error.networkResponse.statusCode == 401){
+                            refreshToken();
+                        }
                     }
                 }) {
             @Override
@@ -356,6 +384,14 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        try {
+                            if (error.networkResponse.statusCode == 401){
+                                refreshToken();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 }) {
             @Override
@@ -368,5 +404,82 @@ public class ThingsBoard {
             }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
+    }
+
+    public void refreshToken() {
+        String refreshTokenURL = baseURL + "api/auth/logout";
+        String refreshToken = sharedPreferences.getString("REFRESH_TOKEN_KEY", "No key");
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("refreshToken", refreshToken);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String auth = sharedPreferences.getString("AUTH_TOKEN_KEY", "No key");
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, refreshTokenURL , jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (MainActivity.debugging == 1)
+                            Log.i("DEVICE", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                        Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "*/*");
+                headers.put("X-Authorization", "Bearer " + auth);
+                return headers;
+            }
+        };
+        VolleyController.getInstance(context).addToQueue(jsonObjReq);
+    }
+
+    public void addDeviceTelemetry() {
+        String credentials = sharedPreferences.getString(CREDENTIALS_ID, "No Id");
+        String addDeviceAttributesURL = baseURL + "api/v1/" + credentials + "/attributes";
+
+        JSONObject jsonBody = new JSONObject();
+
+        String auth = sharedPreferences.getString("AUTH_TOKEN_KEY", "No key");
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, addDeviceAttributesURL , jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        obtainThingsBoardToken();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                        Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        obtainThingsBoardToken();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                headers.put("X-Authorization", "Bearer " + auth);
+                return headers;
+            }
+        };
+        VolleyController.getInstance(context).addToQueue(jsonObjReq);
+    }
+
+    public void addNewDevice(int team, String age, String gender) {
+        getLastAddedDevice(team, age, gender);
     }
 }

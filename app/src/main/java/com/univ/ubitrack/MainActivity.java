@@ -33,8 +33,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity {
-
-
+    ThingsBoard thingsBoard;
     public static int isPhoneRegistered = -1;
     public static int debugging = 1;
     Intent serviceIntent = null;
@@ -51,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(MainActivity.this);
         device = (DeviceModel) dbHelper.getDevice();
         Battery.CurrentPlaceActivity currentPlaceActivity = new Battery.CurrentPlaceActivity();
+        startNetworkService();
+
+        if (NetworkService.isNetworkAvailable())
+            thingsBoard = new ThingsBoard(MainActivity.this);
 
         if (device != null) {
             isPhoneRegistered = device.getIsDeviseRegistered();
@@ -59,15 +62,11 @@ public class MainActivity extends AppCompatActivity {
         if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
-            startNetworkService();
-            ThingsBoard thingsBoard = new ThingsBoard(MainActivity.this);
             if(!checkForActivityPermission() || !checkForLocationPermission()){
                 openAppSettings();
                 Toast.makeText(getApplicationContext(), "Please the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
             }
-
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
-
             requestUpdatesHandler();
         } else {
             goToGetStarted();

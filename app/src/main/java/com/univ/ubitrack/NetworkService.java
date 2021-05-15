@@ -16,7 +16,8 @@ public class NetworkService {
     public NetworkService(Context context) {
         this.context = context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            networkCapabilities = getNetworkCapabilities();
+            if (isNetworkAvailable())
+                networkCapabilities = getNetworkCapabilities();
         }
     }
 
@@ -32,7 +33,7 @@ public class NetworkService {
         return capabilities;
     }
 
-    private static boolean isNetworkAvailable() {
+    public static boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();

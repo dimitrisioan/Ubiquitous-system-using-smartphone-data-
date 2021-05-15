@@ -154,7 +154,7 @@ public class DataTableFragment extends Fragment {
         if (screen_on_data.getLocation_id() != null)
             textView2.setText(screen_off_data.getLocation_id().substring(0, 8));
         else
-            textView1.setText("null");
+            textView2.setText("null");
         textView2.setGravity(Gravity.CENTER);
         textView1.setTextColor(Color.BLACK);
         textView2.setTextColor(Color.BLACK);
@@ -200,9 +200,11 @@ public class DataTableFragment extends Fragment {
         row = view.findViewById(R.id.tv_network_type);
         textView1 = new TextView(getContext());
         textView2 = new TextView(getContext());
-        textView1.setText(screen_on_data.getNetwork_type().substring(10));
+        textView1.setText(screen_on_data.getNetwork_type());
+        textView1.setTextSize(10);
         textView1.setGravity(Gravity.CENTER);
-        textView2.setText(screen_off_data.getNetwork_type().substring(10));
+        textView2.setText(screen_off_data.getNetwork_type());
+        textView1.setTextSize(10);
         textView2.setGravity(Gravity.CENTER);
         textView1.setTextColor(Color.BLACK);
         textView2.setTextColor(Color.BLACK);

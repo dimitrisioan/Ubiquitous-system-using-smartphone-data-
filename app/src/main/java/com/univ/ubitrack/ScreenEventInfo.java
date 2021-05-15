@@ -64,7 +64,8 @@ public class ScreenEventInfo {
         notifications = new Notifications(context);
         Places.initialize(context, "AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk");
         placesClient = Places.createClient(context);
-        getLocation();
+        if (NetworkService.isNetworkAvailable())
+            getLocation();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
