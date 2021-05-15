@@ -20,7 +20,6 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -78,6 +77,10 @@ public class ScreenEventInfo {
         this.device_interactive = getDeviceInteractive();
         this.notifs_active = notifications.getNotificationCount();
         this.network_type = NetworkService.getNetworkType();
+        if (this.network_type.equals("None"));
+            ThingsBoard.addDeviceTelemetry(device_interactive, display_state, system_time, activity,
+                    activity_conf, location_type, location_id, location_conf, battery_level,
+                    battery_status, network_type, notifs_active);
         addUsersDataToDB();
 //        Log.i("Data", toString());
 

@@ -1,27 +1,22 @@
 package com.univ.ubitrack;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -57,7 +52,9 @@ public class SecondRegisterPage extends AppCompatActivity {
                     ThingsBoard thingsBoard = new ThingsBoard(getApplicationContext());
                     thingsBoard.addNewDevice(Integer.parseInt(recruitingTeam), ageRange, gender);
                     openApp();
-                    openAppSettings();
+                    if(!checkForActivityPermission() || !checkForLocationPermission()){
+                        openAppSettings();
+                    }
                 }else {
                     Toast.makeText(SecondRegisterPage.this, "You must be connected to network in order to continue", Toast.LENGTH_SHORT).show();
                 }
@@ -81,6 +78,23 @@ public class SecondRegisterPage extends AppCompatActivity {
             startActivity(intent);
 
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private boolean checkForActivityPermission() {
+        if (ContextCompat.checkSelfPermission(SecondRegisterPage.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkForLocationPermission() {
+        if (ContextCompat.checkSelfPermission(SecondRegisterPage.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
+            return false;
+        }
+        return true;
     }
 
     private void openApp(){

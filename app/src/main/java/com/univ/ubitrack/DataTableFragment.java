@@ -1,16 +1,8 @@
 package com.univ.ubitrack;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentTransaction;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +11,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class DataTableFragment extends Fragment {

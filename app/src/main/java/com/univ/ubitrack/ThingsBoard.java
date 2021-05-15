@@ -9,9 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.android.gms.dynamic.IFragmentWrapper;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,8 +29,8 @@ public class ThingsBoard {
     private String deviceId;
     private String credentialsId;
     private String lastAddedDeviceName;
-    private SharedPreferences sharedPreferences;
-    private Context context;
+    private static SharedPreferences sharedPreferences;
+    private static Context context;
     private String username = "omada7@ceid.upatras.gr";
     private String password = "diaxitos1998!";
     private int statusCode;
@@ -391,7 +389,6 @@ public class ThingsBoard {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 }) {
             @Override
@@ -445,26 +442,50 @@ public class ThingsBoard {
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public void addDeviceTelemetry() {
-        String credentials = sharedPreferences.getString(CREDENTIALS_ID, "No Id");
-        String addDeviceAttributesURL = baseURL + "api/v1/" + credentials + "/attributes";
+    public static void addDeviceTelemetry(String deviceInteractive, int displayState, String systemTime,
+                                   String activity, float activityConf, String locationType,
+                                   String locationId, float locationConf,  int batteryLevel,
+                                   String batteryStatus, String networkType, int notifsActive) {
+        String deviceId = sharedPreferences.getString("DEVICE_ID", "No ID");
+        String addDeviceTelemetryURL = baseURL + "api/plugins/telemetry/DEVICE/" + deviceId + "/timeseries/CLIENT_SCOPE";
+
+        JSONObject jsonValues = new JSONObject();
+        try {
+            jsonValues.put("device_interactive", deviceInteractive);
+            jsonValues.put("display_state", displayState);
+            jsonValues.put("system_time", systemTime);
+            jsonValues.put("activity", activity);
+            jsonValues.put("activity_conf", activityConf);
+            jsonValues.put("location_type", locationType);
+            jsonValues.put("location_id", locationId);
+            jsonValues.put("location_conf", locationConf);
+            jsonValues.put("battery_level", batteryLevel);
+            jsonValues.put("battery_status", batteryStatus);
+            jsonValues.put("network_type", networkType);
+            jsonValues.put("notifs_active", notifsActive);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("values", jsonValues);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         String auth = sharedPreferences.getString("AUTH_TOKEN_KEY", "No key");
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, addDeviceAttributesURL , jsonBody,
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, addDeviceTelemetryURL , jsonBody,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        obtainThingsBoardToken();
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
-                        Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
-                        obtainThingsBoardToken();
                     }
                 }) {
             @Override
