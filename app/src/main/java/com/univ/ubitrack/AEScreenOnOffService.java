@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class AEScreenOnOffService extends Service {
     BroadcastReceiver mReceiver=null;
     private boolean previousScreenState = false;
-
+    private String service = "StartService";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,6 +33,10 @@ public class AEScreenOnOffService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+        if (!Constants.SCREEN_ON_OFF_SERVICE) {
+            stopForeground(true);
+            stopSelf();
+        }
         return START_STICKY;
     }
 
