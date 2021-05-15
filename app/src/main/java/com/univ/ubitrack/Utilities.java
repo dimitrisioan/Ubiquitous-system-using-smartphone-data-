@@ -2,13 +2,6 @@ package com.univ.ubitrack;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Utilities {
     public static void addDeviseToDB(Context context, int recruitingTeam, String ageRange, String gender, String device_id) {

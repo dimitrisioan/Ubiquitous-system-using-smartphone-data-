@@ -7,12 +7,10 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.NetworkCapabilities;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -27,8 +25,6 @@ import com.google.android.gms.location.ActivityRecognitionClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.net.PlacesClient;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -64,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             startAEScreenOnOffService();
             if(!checkForActivityPermission() || !checkForLocationPermission()){
                 openAppSettings();
-                Toast.makeText(getApplicationContext(), "Please the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please give the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
             }
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();

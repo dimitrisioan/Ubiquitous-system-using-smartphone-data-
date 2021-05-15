@@ -9,9 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.android.gms.dynamic.IFragmentWrapper;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -481,5 +479,6 @@ public class ThingsBoard {
 
     public void addNewDevice(int team, String age, String gender) {
         getLastAddedDevice(team, age, gender);
+
     }
 }
