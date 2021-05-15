@@ -59,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
             applicationFragments();
 //            switch_home = getApplicationContext().getSharedPreferences(getApplicationContext().getPackageName(), Context.MODE_PRIVATE);
 //            switch_home.getBoolean("service_status", true);
-            if (Constants.SCREEN_ON_OFF_SERVICE)
-                startAEScreenOnOffService();
+            startAEScreenOnOffService();
             if(!checkForActivityPermission() || !checkForLocationPermission()){
                 openAppSettings();
                 Toast.makeText(getApplicationContext(), "Please give the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
@@ -68,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();
             thingsBoard.getDeviceId(device.getDevice_id());
+            Constants.RECORD_COUNT = dbHelper.getUserCount();
         } else {
             goToGetStarted();
             boolean isNotificationServiceRunning = isNotificationServiceRunning();
@@ -152,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void startAEScreenOnOffService() {
         Context context = getApplicationContext();
-        Constants.SCREEN_ON_OFF_SERVICE = true;
         if (serviceIntent == null) {
             serviceIntent = new Intent(MainActivity.this, AEScreenOnOffService.class);
             startService(serviceIntent);

@@ -240,4 +240,13 @@ public class DBHelper extends SQLiteOpenHelper {
         long update = db.update(USERS_DATA_TABLE, contentValues, "uid = ?", new String[]{String.valueOf(id)});
         return update != -1;
     }
+
+    public int getUserCount() {
+        String countQuery = "SELECT  * FROM " + USERS_DATA_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
 }

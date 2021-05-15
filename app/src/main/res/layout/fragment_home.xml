@@ -69,7 +69,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp"
             android:background="#FFFFFF"
-            android:text=" records so far."
+            android:text=" records."
             android:textColor="@color/settingFont"
             android:textSize="18sp"
             android:textStyle="bold" />
