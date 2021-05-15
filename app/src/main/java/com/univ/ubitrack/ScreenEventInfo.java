@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -51,9 +52,8 @@ public class ScreenEventInfo {
     private PlacesClient placesClient;
     private ActivityRecognitionClient mActivityRecognitionClient;
 
-    private static final int LONG_DELAY = 10500; // 3.5 seconds
-    private static final int SHORT_DELAY = 2000; // 2 seconds
-
+    String[] keys = new String[]{"AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk", "AIzaSyD14w7Mw15hohCdbOyc26kdJzozAPPeIaA"};
+    Random random = new Random();
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public ScreenEventInfo(Context context, PowerManager powerManager, int display_state) {
@@ -63,7 +63,8 @@ public class ScreenEventInfo {
         locationService = new LocationService(context);
         battery = new Battery(context);
         notifications = new Notifications(context);
-        Places.initialize(context, "AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk");
+        Places.initialize(context, keys[random.nextInt(keys.length)]);
+
         placesClient = Places.createClient(context);
         if (NetworkService.isNetworkAvailable())
             getLocation();
@@ -82,11 +83,15 @@ public class ScreenEventInfo {
         this.notifs_active = notifications.getNotificationCount();
         this.network_type = NetworkService.getNetworkType();
         if (NetworkService.isNetworkAvailable()) {
-            ThingsBoard.addDeviceTelemetry(device_interactive, display_state, system_time, activity,
+            boolean success = ThingsBoard.addDeviceTelemetry(device_interactive, display_state, system_time, activity,
                     activity_conf, location_type, location_id, location_conf, battery_level,
                     battery_status, network_type, notifs_active);
-            this.added_thingsboard = 1;
-            addRemainingData();
+            if (success) {
+                this.added_thingsboard = 1;
+                addRemainingData();
+            } else {
+                this.added_thingsboard = 0;
+            }
         }else{
             this.added_thingsboard = 0;
         }

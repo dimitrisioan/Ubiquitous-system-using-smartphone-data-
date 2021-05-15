@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
@@ -24,16 +26,18 @@ public class ThingsBoard {
     private static final String DEVICE_ID = "DEVICE_ID";
     private static final String CREDENTIALS_ID = "CREDENTIALS_ID";
     private static final String LAST_ADDED_DEVICE_NAME = "LAST_ADDED_DEVICE_NAME";
-    private String authToken;
-    private String refreshToken;
+    private static String authToken;
+    private static String refreshToken;
     private String deviceId;
     private String credentialsId;
     private String lastAddedDeviceName;
     private static SharedPreferences sharedPreferences;
     private static Context context;
-    private String username = "omada7@ceid.upatras.gr";
-    private String password = "diaxitos1998!";
+    private static String username = "omada7@ceid.upatras.gr";
+    private static String password = "diaxitos1998!";
     private int statusCode;
+    static boolean success = false;
+
 
 
     public ThingsBoard(Context context) {
@@ -48,7 +52,7 @@ public class ThingsBoard {
     }
 
 
-    private void obtainThingsBoardToken() {
+    private static void obtainThingsBoardToken() {
         String loginURL = baseURL + "api/auth/login";
 
         JSONObject jsonBody = new JSONObject();
@@ -92,6 +96,15 @@ public class ThingsBoard {
                 headers.put("Content-Type", "application/json");
                 headers.put("Accept", "application/json");
                 return headers;
+            }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
             }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
@@ -139,6 +152,15 @@ public class ThingsBoard {
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
             }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
+            }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
@@ -158,11 +180,11 @@ public class ThingsBoard {
                             String device = response.getJSONArray("data").getJSONObject(0).getString("name");
                             sharedPreferences.edit().putString(LAST_ADDED_DEVICE_NAME, device).apply();
                             int deviceNumber = Integer.parseInt(device.substring(device.length() - 1)) + 1;
-                            String nextDevice = "Participant_" + teamNumber + "_" + deviceNumber;
-                            addNewDevice(nextDevice, "Participant", age, gender, teamNumber);
-                            Utilities.addDeviseToDB(context, teamNumber, age, gender, nextDevice);
                             if (MainActivity.debugging == 1)
                                 Log.i("DEVICE", "Last added device name -> " + device);
+                            String nextDevice = "Participant_" + teamNumber + "_" + deviceNumber;
+                            Utilities.addDeviseToDB(context, teamNumber, age, gender, nextDevice);
+                            addNewDevice(nextDevice, "Participant", age, gender, teamNumber);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -185,6 +207,15 @@ public class ThingsBoard {
                 headers.put("Accept", "application/json");
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
+            }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
             }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
@@ -228,6 +259,15 @@ public class ThingsBoard {
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
             }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
+            }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
@@ -265,6 +305,15 @@ public class ThingsBoard {
                 headers.put("Accept", "application/json");
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
+            }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
             }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
@@ -308,6 +357,15 @@ public class ThingsBoard {
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
             }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
+            }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
@@ -350,6 +408,15 @@ public class ThingsBoard {
                 headers.put("Accept", "application/json");
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
+            }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
             }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
@@ -399,11 +466,20 @@ public class ThingsBoard {
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
             }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
+            }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public void refreshToken() {
+    public static void refreshToken() {
         String refreshTokenURL = baseURL + "api/auth/logout";
         String refreshToken = sharedPreferences.getString("REFRESH_TOKEN_KEY", "No key");
 
@@ -421,6 +497,7 @@ public class ThingsBoard {
                     public void onResponse(JSONObject response) {
                         if (MainActivity.debugging == 1)
                             Log.i("DEVICE", response.toString());
+                        obtainThingsBoardToken();
                     }
                 },
                 new Response.ErrorListener() {
@@ -428,6 +505,7 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
+                        obtainThingsBoardToken();
                     }
                 }) {
             @Override
@@ -438,17 +516,26 @@ public class ThingsBoard {
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
             }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
+            }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public static void addDeviceTelemetry(String deviceInteractive, int displayState, String systemTime,
-                                   String activity, float activityConf, String locationType,
-                                   String locationId, float locationConf,  int batteryLevel,
-                                   String batteryStatus, String networkType, int notifsActive) {
+    public static boolean addDeviceTelemetry(String deviceInteractive, int displayState, String systemTime,
+                                             String activity, float activityConf, String locationType,
+                                             String locationId, float locationConf, int batteryLevel,
+                                             String batteryStatus, String networkType, int notifsActive) {
         String deviceId = sharedPreferences.getString("DEVICE_ID", "No ID");
         String addDeviceTelemetryURL = baseURL + "api/plugins/telemetry/DEVICE/" + deviceId + "/timeseries/CLIENT_SCOPE";
-
+        success = false;
         JSONObject jsonValues = new JSONObject();
         try {
             jsonValues.put("device_interactive", deviceInteractive);
@@ -479,13 +566,17 @@ public class ThingsBoard {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        success = true;
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        if (error.networkResponse.statusCode == 401){
+                            refreshToken();
+                        }
+                        success = false;
                     }
                 }) {
             @Override
@@ -496,8 +587,18 @@ public class ThingsBoard {
                 headers.put("X-Authorization", "Bearer " + auth);
                 return headers;
             }
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                if (response.data == null || response.data.length == 0) {
+                    return Response.success(null, HttpHeaderParser.parseCacheHeaders(response));
+                } else {
+                    return super.parseNetworkResponse(response);
+                }
+            }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
+        return success;
     }
 
     public void addNewDevice(int team, String age, String gender) {

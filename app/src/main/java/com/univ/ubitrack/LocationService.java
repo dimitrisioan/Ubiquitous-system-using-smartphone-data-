@@ -2,7 +2,6 @@ package com.univ.ubitrack;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
@@ -16,8 +15,6 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -52,7 +49,9 @@ public class LocationService {
     public List<Object> getLoc() {
         List<Place.Field> placeFields = Arrays.asList(Place.Field.TYPES, Place.Field.ID);
         FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
+
         Places.initialize(context, "AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk");
+
         PlacesClient placesClient = Places.createClient(context);
 
         if (ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
