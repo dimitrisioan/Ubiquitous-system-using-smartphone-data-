@@ -7,7 +7,7 @@
     <string name="other">Other</string>
     <string name="female">Female</string>
     <string name="not_disclosed">Not disclosed</string>
-    <string name="what_s_your_gender">What is your gender?</string>
+    <string name="what_s_your_gender">What\'s your gender?</string>
     <string name="emoji">Thanks for your support &#x270C;</string>
 
     <string name="accept_location">In order to provide you with information about your smartphone usage habits we need you to accept location tracking below: </string>
