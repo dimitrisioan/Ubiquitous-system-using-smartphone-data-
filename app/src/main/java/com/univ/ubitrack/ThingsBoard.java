@@ -84,7 +84,6 @@ public class ThingsBoard {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
-                            Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override

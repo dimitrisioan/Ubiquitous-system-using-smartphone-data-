@@ -50,8 +50,6 @@ public class SecondChart extends Fragment {
         setData();
         mChart.setFitBars(true);
 
-
-
         // Inflate the layout for this fragment
         return view;
     }
