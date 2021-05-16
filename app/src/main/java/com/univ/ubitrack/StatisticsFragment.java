@@ -3,12 +3,6 @@ package com.univ.ubitrack;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.Objects;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 public class StatisticsFragment extends Fragment  {
@@ -28,7 +23,6 @@ public class StatisticsFragment extends Fragment  {
     DataTableFragment dataFragment;
     FirstChart chart1Fragment;
     SecondChart chart2Fragment;
-    ThirdChart chart3Fragment;
     private Fragment fragment;
     SwipeRefreshLayout refreshLayout;
 
@@ -57,7 +51,6 @@ public class StatisticsFragment extends Fragment  {
         dataFragment = new DataTableFragment();
         chart1Fragment = new FirstChart();
         chart2Fragment = new SecondChart();
-        chart3Fragment = new ThirdChart();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
@@ -107,9 +100,6 @@ public class StatisticsFragment extends Fragment  {
                 }
                 if (i == 2) {
                       setFragment(chart2Fragment);
-                }
-                if (i == 3) {
-                      setFragment(chart3Fragment);
                 }
             }
             @Override

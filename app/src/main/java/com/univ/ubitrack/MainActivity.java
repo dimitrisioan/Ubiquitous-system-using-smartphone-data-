@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static com.univ.ubitrack.Utilities.getLastSevenDays;
 
 public class MainActivity extends AppCompatActivity {
     ThingsBoard thingsBoard;
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper dbHelper = new DBHelper(MainActivity.this);
         device = (DeviceModel) dbHelper.getDevice();
-        dbHelper.groupByActivity();
         Battery.CurrentPlaceActivity currentPlaceActivity = new Battery.CurrentPlaceActivity();
         startNetworkService();
 
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isPhoneRegistered == 1) {
             applicationFragments();
+            getLastSevenDays();
             startAEScreenOnOffService();
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();

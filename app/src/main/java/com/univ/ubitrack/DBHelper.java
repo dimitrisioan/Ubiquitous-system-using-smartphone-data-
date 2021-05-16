@@ -35,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DEVICE_INTERACTIVE = "device_interactive";
     private static final String COLUMN_NETWORK_TYPE = "network_type";
     private static final String COLUMN_ADDED_THINKSBOARD = "thinksboard_added";
+    private static final String COLUMN_TIMESTAMP = "timestamp";
 
     public DBHelper(@Nullable Context context) {
         super(context, "ubitrack", null, 1);
@@ -68,6 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_BATTERY_STATUS + " TEXT DEFAULT 'unknown', " +
                 COLUMN_NETWORK_TYPE + " TEXT DEFAULT 'unknown', " +
                 COLUMN_NOTIFS_ACTIVE + " INTEGER DEFAULT -1, " +
+                COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT (datetime('now','localtime')), " +
                 COLUMN_ADDED_THINKSBOARD + " INTEGER DEFAULT 0)";
 
         db.execSQL(createDeviceTableStatement);
@@ -268,5 +270,30 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         db.close();
         return activityCounters;
+    }
+
+    public ArrayList<EventsPerDay> getEventsForADay(ArrayList<String> dates) {
+        ArrayList<EventsPerDay> eventsPerDays = new ArrayList<>();
+
+        for ( int i = 0; i <= dates.size() - 1; i += 2 ) {
+            Log.i("Date", dates.get(i)+dates.size());
+            String selectUsersData = "SELECT COUNT(uid) FROM " + USERS_DATA_TABLE + " WHERE " + COLUMN_TIMESTAMP + " >= '" + dates.get(i) + "' AND "  + COLUMN_TIMESTAMP + " <= '" + dates.get(i+1) + "'";
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            try (Cursor cursor = db.rawQuery(selectUsersData, null)) {
+                while (cursor.moveToNext()) {
+
+                    int count = cursor.getInt(0);
+                    Log.i("Loop", String.valueOf(count));
+                    EventsPerDay eventsPerDay = new EventsPerDay(dates.get(i), count);
+                    eventsPerDays.add(eventsPerDay);
+                }
+            }catch (Exception e) {
+                Log.e("SQLITE", e.toString());
+            }
+            db.close();
+        }
+
+        return eventsPerDays;
     }
 }

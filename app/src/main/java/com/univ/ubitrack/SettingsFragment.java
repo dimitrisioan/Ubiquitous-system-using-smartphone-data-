@@ -4,15 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 
 public class SettingsFragment extends Fragment {
@@ -45,6 +44,7 @@ public class SettingsFragment extends Fragment {
                 DBHelper dbHelper = new DBHelper(getContext());
                 try {
                     dbHelper.deleteAllDevices();
+                    dbHelper.deleteAllUsersData();
                     Toast.makeText(getContext(), "Device Removed Successfully", Toast.LENGTH_SHORT).show();
                     goToGetStarted();
                 } catch (Exception e) {

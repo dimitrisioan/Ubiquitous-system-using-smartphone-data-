@@ -15,19 +15,19 @@
     </string-array>
 
     <string-array name="age_items">
-        <item>18-24</item>
-        <item>25-30</item>
-        <item>31-40</item>
-        <item>41-50</item>
-        <item>51-60</item>
+        <item>18–24</item>
+        <item>25–30</item>
+        <item>31–40</item>
+        <item>41–50</item>
+        <item>51–60</item>
         <item>60+</item>
         <item>not disclosed</item>
     </string-array>
 
     <string-array name="chart_items">
-        <item>Last 2 Screen Events</item>
+        <item>Last Screen Events</item>
         <item>Activity Distribution</item>
-        <item>Chart 2</item>
+        <item>On/Offs per Day (Last Week)</item>
     </string-array>
 
 </resources>

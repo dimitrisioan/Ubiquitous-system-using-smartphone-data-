@@ -1,12 +1,13 @@
 package com.univ.ubitrack;
 
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -37,13 +38,14 @@ public class SecondChart extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_second_chart, container, false);
         mChart = view.findViewById(R.id.chart2);
         mChart.getDescription().setEnabled(false);
-        setData(11);
+        setData();
         mChart.setFitBars(true);
 
 
@@ -51,14 +53,19 @@ public class SecondChart extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-    private void setData(int count){
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void setData(){
         ArrayList<BarEntry> yVals = new ArrayList<>();
-        for(int i=0; i< count; i++){
-            float value = (float) (Math.random()*100);
-            yVals.add(new BarEntry(i,(int) value));
+        DBHelper dbHelper = new DBHelper(getContext());
+        ArrayList<String> dates = Utilities.getLastSevenDays();
+        ArrayList<EventsPerDay> eventsPerDays = dbHelper.getEventsForADay(dates);
+
+        for(int i=1; i < 8; i++){
+            EventsPerDay eventsPerDay = eventsPerDays.get(i-1);
+            yVals.add(new BarEntry(i,(int) eventsPerDay.getCount()));
         }
-        BarDataSet set = new BarDataSet(yVals,"Data Set");
-        set.setColors(ColorTemplate.MATERIAL_COLORS);
+        BarDataSet set = new BarDataSet(yVals,"");
+        set.setColors(ColorTemplate.rgb("2FCC76"));
         set.setDrawValues(true);
 
         BarData data = new BarData(set);
