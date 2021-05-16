@@ -64,7 +64,7 @@ public class FirstChart extends Fragment {
         PieDataSet dataset = new PieDataSet(yValues, "");
         dataset.setSliceSpace(3f);
         dataset.setSelectionShift(5f);
-        dataset.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
         PieData data = new PieData((dataset));
         data.setValueTextSize(10f);
