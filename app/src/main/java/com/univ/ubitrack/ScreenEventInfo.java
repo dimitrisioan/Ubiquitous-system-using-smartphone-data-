@@ -63,13 +63,13 @@ public class ScreenEventInfo {
         locationService = new LocationService(context);
         battery = new Battery(context);
         notifications = new Notifications(context);
-        Places.initialize(context, keys[random.nextInt(keys.length)]);
         this.system_time = getCurrentTime();
-        placesClient = Places.createClient(context);
         this.activity = TransitionReceiver.getLastMostProbableActivityString();
         this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
         if (NetworkService.isNetworkAvailable()){
             if (checkIfNewLocation()) {
+                Places.initialize(context, keys[random.nextInt(keys.length)]);
+                placesClient = Places.createClient(context);
                 getLocation();
             } else {
                 this.location_conf = Constants.LAST_LOCATION_CONF;
@@ -77,6 +77,11 @@ public class ScreenEventInfo {
                 this.location_id = Constants.LAST_LOCATION_ID;
                 afterComplete(true);
             }
+        }else{
+            this.location_conf = (float) 0.0;
+            this.location_id = null;
+            this.location_type = null;
+            afterComplete(true);
         }
     }
 
