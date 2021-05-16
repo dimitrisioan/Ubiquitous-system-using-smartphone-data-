@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
             }
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();
-            thingsBoard.getDeviceId(device.getDevice_id());
+            if (NetworkService.isNetworkAvailable())
+                thingsBoard.getDeviceId(device.getDevice_id());
             Constants.RECORD_COUNT = dbHelper.getUserCount();
         } else {
             goToGetStarted();
