@@ -10,9 +10,11 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -58,11 +60,22 @@ public class SecondChart extends Fragment {
         ArrayList<BarEntry> yVals = new ArrayList<>();
         DBHelper dbHelper = new DBHelper(getContext());
         ArrayList<String> dates = Utilities.getLastSevenDays();
+        ArrayList<String> cDates = Utilities.getLastSevenDaysForChart();
         ArrayList<EventsPerDay> eventsPerDays = dbHelper.getEventsForADay(dates);
 
-        for(int i=1; i < 8; i++){
-            EventsPerDay eventsPerDay = eventsPerDays.get(i-1);
-            yVals.add(new BarEntry(i,(int) eventsPerDay.getCount()));
+        XAxis xAxis = mChart.getXAxis();
+        final String[] labels = new String[8];
+        labels[0] = "";
+        for (int i = 0; i < cDates.size(); i++){
+            labels[i+1] = cDates.get(i);
+        }
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
+
+        for(int i=0; i < 7; i++){
+            EventsPerDay eventsPerDay = eventsPerDays.get(i);
+            yVals.add(new BarEntry(i+1,(int) eventsPerDay.getCount()));
         }
         BarDataSet set = new BarDataSet(yVals,"");
         set.setColors(ColorTemplate.rgb("2FCC76"));

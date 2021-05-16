@@ -47,4 +47,22 @@ public class Utilities {
         return last7Dates;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static ArrayList<String> getLastSevenDaysForChart() {
+        ArrayList<String> last7Dates = new ArrayList<>();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+        Calendar cal = Calendar.getInstance();
+
+        // get starting date
+        cal.add(Calendar.DAY_OF_YEAR, -7);
+
+        // loop adding one day in each iteration
+        for(int i = 0; i< 7; i++){
+            cal.add(Calendar.DAY_OF_YEAR, 1);
+            String date = sdf.format(cal.getTime());
+            last7Dates.add(date);
+        }
+        return last7Dates;
+    }
+
 }
