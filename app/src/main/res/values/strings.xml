@@ -7,7 +7,7 @@
     <string name="other">Other</string>
     <string name="female">Female</string>
     <string name="not_disclosed">Not disclosed</string>
-    <string name="what_s_your_gender">What is your gender?</string>
+    <string name="what_s_your_gender">What\'s your gender?</string>
     <string name="emoji">Thanks for your support &#x270C;</string>
 
     <string name="accept_location">In order to provide you with information about your smartphone usage habits we need you to accept location tracking below: </string>
@@ -18,7 +18,7 @@
     <string name="question_1">Which team recruited you?</string>
     <string name="question_2">What\'s your age?</string>
     <string name="question_3">What type of chart would you like to see?</string>
-    <string name="question_4">Once you click NEXT button, you will be transferred to "App Info"  permissions, where you need to enable:\n\u2022 Location\n\u2022 Physical Activity\n\u2022 FullScreen mode\n</string>
+    <string name="question_4">Once you click NEXT, you will be redirected to "App Info" permissions, where you need to enable:\n\u2022 Location\n\u2022 Physical Activity\n\u2022 Autostart\n</string>
     <string name="next_btn">Next</string>
     <string name="device_info">Device Info </string>
     <string name="age_range">Age Range: </string>
