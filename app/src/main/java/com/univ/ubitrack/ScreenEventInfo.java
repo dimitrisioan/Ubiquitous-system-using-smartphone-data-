@@ -66,24 +66,22 @@ public class ScreenEventInfo {
         Places.initialize(context, keys[random.nextInt(keys.length)]);
         this.system_time = getCurrentTime();
         placesClient = Places.createClient(context);
-        if (NetworkService.isNetworkAvailable() && checkIfNewLocation())
-            getLocation();
-        else if (!NetworkService.isNetworkAvailable()){
-            this.location_conf = (float) 0.0;
-            this.location_id = null;
-            this.location_type = null;
-        }else{
-            this.location_conf = Constants.LAST_LOCATION_CONF;
-            this.location_type = Constants.LAST_LOCATION_TYPE;
-            this.location_id = Constants.LAST_LOCATION_ID;
+        this.activity = TransitionReceiver.getLastMostProbableActivityString();
+        this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
+        if (NetworkService.isNetworkAvailable()){
+            if (checkIfNewLocation()) {
+                getLocation();
+            } else {
+                this.location_conf = Constants.LAST_LOCATION_CONF;
+                this.location_type = Constants.LAST_LOCATION_TYPE;
+                this.location_id = Constants.LAST_LOCATION_ID;
+                afterComplete(true);
+            }
         }
-        afterComplete(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void afterComplete(boolean result){
-        this.activity = TransitionReceiver.getLastMostProbableActivityString();
-        this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
         this.battery_level = battery.getBatteryPercentage();
         this.battery_status = battery.getBatteryStatus();
         this.device_interactive = getDeviceInteractive();
@@ -254,7 +252,6 @@ public class ScreenEventInfo {
                 }
             }
         }
-
         return true;
     }
 }
