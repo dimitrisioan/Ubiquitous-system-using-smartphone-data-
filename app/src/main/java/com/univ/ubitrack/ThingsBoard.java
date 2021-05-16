@@ -36,9 +36,6 @@ public class ThingsBoard {
     private static String username = "omada7@ceid.upatras.gr";
     private static String password = "diaxitos1998!";
     private int statusCode;
-    static boolean success = false;
-
-
 
     public ThingsBoard(Context context) {
         this.context = context;
@@ -529,13 +526,13 @@ public class ThingsBoard {
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public static boolean addDeviceTelemetry(String deviceInteractive, int displayState, String systemTime,
+    public static void addDeviceTelemetry(String deviceInteractive, int displayState, String systemTime,
                                              String activity, float activityConf, String locationType,
                                              String locationId, float locationConf, int batteryLevel,
                                              String batteryStatus, String networkType, int notifsActive) {
         String deviceId = sharedPreferences.getString("DEVICE_ID", "No ID");
         String addDeviceTelemetryURL = baseURL + "api/plugins/telemetry/DEVICE/" + deviceId + "/timeseries/CLIENT_SCOPE";
-        success = false;
+
         JSONObject jsonValues = new JSONObject();
         try {
             jsonValues.put("device_interactive", deviceInteractive);
@@ -566,7 +563,7 @@ public class ThingsBoard {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        success = true;
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -576,7 +573,6 @@ public class ThingsBoard {
                         if (error.networkResponse.statusCode == 401){
                             refreshToken();
                         }
-                        success = false;
                     }
                 }) {
             @Override
@@ -598,7 +594,6 @@ public class ThingsBoard {
             }
         };
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
-        return success;
     }
 
     public void addNewDevice(int team, String age, String gender) {

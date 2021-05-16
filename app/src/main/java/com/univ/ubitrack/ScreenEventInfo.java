@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -93,15 +92,10 @@ public class ScreenEventInfo {
         this.notifs_active = notifications.getNotificationCount();
         this.network_type = NetworkService.getNetworkType();
         if (NetworkService.isNetworkAvailable()) {
-            boolean success = ThingsBoard.addDeviceTelemetry(device_interactive, display_state, system_time, activity,
+            ThingsBoard.addDeviceTelemetry(device_interactive, display_state, system_time, activity,
                     activity_conf, location_type, location_id, location_conf, battery_level,
                     battery_status, network_type, notifs_active);
-            if (success) {
-                this.added_thingsboard = 1;
-                addRemainingData();
-            } else {
-                this.added_thingsboard = 0;
-            }
+            this.added_thingsboard = 1;
         }else{
             this.added_thingsboard = 0;
         }
@@ -111,6 +105,9 @@ public class ScreenEventInfo {
         Constants.LAST_LOCATION_ID = this.location_id;
         Constants.LAST_LOCATION_CONF = this.location_conf;
         addUsersDataToDB();
+        if (NetworkService.isNetworkAvailable()) {
+            addRemainingData();
+        }
     }
 
     public void getLocation() {
@@ -207,7 +204,7 @@ public class ScreenEventInfo {
             return true;
         }catch (Exception e){
 //            Toast.makeText(context, toString(), Toast.LENGTH_LONG).show();
-            Toast.makeText(context, "An Error Occurred", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "An Error Occurred", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
@@ -239,8 +236,6 @@ public class ScreenEventInfo {
         String lastLocationType = Constants.LAST_LOCATION_TYPE;
         String lastLocationId = Constants.LAST_LOCATION_ID;
         float lastLocationConf = Constants.LAST_LOCATION_CONF;
-
-        Log.i("Data", lastTimestamp + lastActivity + lastLocationType + lastActivity);
 
         if (lastLocationConf != 0.0 && lastLocationId != null && lastLocationType != null){
             if (lastTimestamp != null && lastActivity != null) {

@@ -249,4 +249,24 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return count;
     }
+
+    public ArrayList<ActivityCounter> groupByActivity() {
+        String selectUsersData = "SELECT  activity, COUNT(uid) FROM " + USERS_DATA_TABLE + " GROUP BY " + COLUMN_ACTIVITY;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ArrayList<ActivityCounter> activityCounters = new ArrayList<ActivityCounter>();
+
+        try (Cursor cursor = db.rawQuery(selectUsersData, null)) {
+            while (cursor.moveToNext()) {
+                ActivityCounter activityCounter = null;
+                String  activity = cursor.getString(0);
+                int count = cursor.getInt(1);
+                activityCounter = new ActivityCounter(activity, count);
+                activityCounters.add(activityCounter);
+                Log.i("Counter", activity + count);
+            }
+        }
+        db.close();
+        return activityCounters;
+    }
 }

@@ -2,12 +2,11 @@ package com.univ.ubitrack;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -52,15 +51,17 @@ public class FirstChart extends Fragment {
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setTransparentCircleRadius(61f);
 
-        ArrayList<PieEntry> yValues = new ArrayList<>();
-        yValues.add(new PieEntry(34f,"A"));
-        yValues.add(new PieEntry(23f,"B"));
-        yValues.add(new PieEntry(14f,"C"));
-        yValues.add(new PieEntry(35,"D"));
-        yValues.add(new PieEntry(40,"E"));
-        yValues.add(new PieEntry(23,"F"));
+        DBHelper dbHelper = new DBHelper(getContext());
+        ArrayList<ActivityCounter> activityCounters = dbHelper.groupByActivity();
 
-        PieDataSet dataset = new PieDataSet(yValues,"Fields Title");
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+        for (int i = 0; i <= activityCounters.size() - 1; i++ ){
+            ActivityCounter activityCounter = (ActivityCounter) activityCounters.get(i);
+            yValues.add(new PieEntry(activityCounter.getCount(),activityCounter.getActivity_type()));
+        }
+
+
+        PieDataSet dataset = new PieDataSet(yValues, "");
         dataset.setSliceSpace(3f);
         dataset.setSelectionShift(5f);
         dataset.setColors(ColorTemplate.JOYFUL_COLORS);

@@ -25,10 +25,9 @@
     </string-array>
 
     <string-array name="chart_items">
-        <item>Raw data</item>
-        <item>Chart 1</item>
+        <item>Last 2 Screen Events</item>
+        <item>Activity Distribution</item>
         <item>Chart 2</item>
-        <item>Chart 3</item>
     </string-array>
 
 </resources>

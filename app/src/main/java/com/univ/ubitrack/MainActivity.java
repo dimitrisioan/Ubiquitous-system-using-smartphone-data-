@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper dbHelper = new DBHelper(MainActivity.this);
         device = (DeviceModel) dbHelper.getDevice();
+        dbHelper.groupByActivity();
         Battery.CurrentPlaceActivity currentPlaceActivity = new Battery.CurrentPlaceActivity();
         startNetworkService();
 
@@ -58,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
         if (isPhoneRegistered == 1) {
             applicationFragments();
             startAEScreenOnOffService();
-            if(!checkForActivityPermission() || !checkForLocationPermission()){
-                openAppSettings();
-                Toast.makeText(getApplicationContext(), "Please give the appropriate Location and Activity Permissions", Toast.LENGTH_SHORT).show();
-            }
             mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();
             if (NetworkService.isNetworkAvailable())
