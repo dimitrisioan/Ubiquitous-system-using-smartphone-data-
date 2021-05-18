@@ -239,7 +239,9 @@ public class ScreenEventInfo {
             if (lastTimestamp != null && lastActivity != null) {
                 long currentTimestamp = Long.parseLong(this.system_time);
                 long lastTimestampInt = Long.parseLong(lastTimestamp);
-                long diff = lastTimestampInt;
+                Log.i("timestamps", String.valueOf(currentTimestamp));
+                Log.i("timestamps", String.valueOf(lastTimestampInt));
+                long diff = currentTimestamp - lastTimestampInt;
                 Log.i("Diff", String.valueOf(diff));
                 if (diff <= 10 && lastActivity.equals("Still")){
                     return false;
