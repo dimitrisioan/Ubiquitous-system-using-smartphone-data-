@@ -1,12 +1,10 @@
 package com.univ.ubitrack;
 
-import android.Manifest;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,18 +13,14 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
-import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.ActivityRecognitionClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static com.univ.ubitrack.Utilities.getLastSevenDays;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper dbHelper = new DBHelper(MainActivity.this);
         device = (DeviceModel) dbHelper.getDevice();
-        Battery.CurrentPlaceActivity currentPlaceActivity = new Battery.CurrentPlaceActivity();
         startNetworkService();
 
         if (NetworkService.isNetworkAvailable())
@@ -60,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             applicationFragments();
             getLastSevenDays();
             startAEScreenOnOffService();
-            mActivityRecognitionClient = ActivityRecognition.getClient(MainActivity.this);
+            mActivityRecognitionClient = com.google.android.gms.location.ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();
             if (NetworkService.isNetworkAvailable())
                 thingsBoard.getDeviceId(device.getDevice_id());
@@ -92,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public PendingIntent getActivityDetectionPendingIntent(Context context) {
-        Intent intent = new Intent(context, TransitionReceiver.class);
+        Intent intent = new Intent(context, ActivityRecognition.class);
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
@@ -119,24 +112,6 @@ public class MainActivity extends AppCompatActivity {
     public void startNetworkService() {
         Context context = getApplicationContext();
         NetworkService network = new NetworkService(context);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private boolean checkForActivityPermission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
-            Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkForLocationPermission() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
-            return false;
-        }
-        return true;
     }
 
     private boolean isNotificationServiceRunning() {

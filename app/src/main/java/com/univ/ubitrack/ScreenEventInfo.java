@@ -46,7 +46,6 @@ public class ScreenEventInfo {
     private Context context;
     private PowerManager powerManager;
     Battery battery;
-    LocationService locationService;
     Notifications notifications;
     private PlacesClient placesClient;
     private ActivityRecognitionClient mActivityRecognitionClient;
@@ -59,12 +58,11 @@ public class ScreenEventInfo {
         this.display_state = display_state;
         this.context = context;
         this.powerManager = powerManager;
-        locationService = new LocationService(context);
         battery = new Battery(context);
         notifications = new Notifications(context);
         this.system_time = getCurrentTime();
-        this.activity = TransitionReceiver.getLastMostProbableActivityString();
-        this.activity_conf = TransitionReceiver.getLastMostProbableActivityConf();
+        this.activity = ActivityRecognition.getLastMostProbableActivityString();
+        this.activity_conf = ActivityRecognition.getLastMostProbableActivityConf();
         if (NetworkService.isNetworkAvailable()){
             if (checkIfNewLocation()) {
                 Places.initialize(context, keys[random.nextInt(keys.length)]);

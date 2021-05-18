@@ -17,7 +17,7 @@ import com.google.android.gms.location.DetectedActivity;
 
 import java.util.Objects;
 
-public class TransitionReceiver extends BroadcastReceiver {
+public class ActivityRecognition extends BroadcastReceiver {
     public static final int MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION = 100;
     final String KEY_LAST_ACTIVITY_TYPE = "lastActivityType";
 //    private int lastActivityType = -1;
@@ -57,24 +57,9 @@ public class TransitionReceiver extends BroadcastReceiver {
             }
         }
         if (ActivityRecognitionResult.hasResult(intent)) {
-
             //If data is available, then extract the ActivityRecognitionResult from the Intent//
             ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
             SharedPreferences sharedpreferences = context.getSharedPreferences("MY_PREFS", Context.MODE_PRIVATE);
-//            lastActivityType = sharedpreferences.getInt(KEY_LAST_ACTIVITY_TYPE, -1);
-
-            //Get an array of DetectedActivity objects//
-//            ArrayList<DetectedActivity> detectedActivities = (ArrayList) result.getProbableActivities();
-//
-//            for (DetectedActivity resultReceived : detectedActivities) {
-//                if (resultReceived.getConfidence() > 75) {
-//
-//                    if (lastActivityType != resultReceived.getType()) {
-//                        lastActivityType = resultReceived.getType();
-//                        sharedpreferences.edit().putInt(KEY_LAST_ACTIVITY_TYPE, lastActivityType).apply();
-//                    }
-//                }
-//            }
 
             DetectedActivity mostPropableActivity = Objects.requireNonNull(result).getMostProbableActivity();
             if (mostPropableActivity.getConfidence() > 75 && lastMostProbableActivity != mostPropableActivity.getType()) {

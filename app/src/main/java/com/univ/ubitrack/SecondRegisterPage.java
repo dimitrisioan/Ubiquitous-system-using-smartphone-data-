@@ -26,6 +26,7 @@ public class SecondRegisterPage extends AppCompatActivity {
     private String recruitingTeam, ageRange, gender;
     RadioGroup genderRadioGroup;
     RadioButton radioButton;
+    public static final int MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class SecondRegisterPage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private boolean checkForActivityPermission() {
         if (ContextCompat.checkSelfPermission(SecondRegisterPage.this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, TransitionReceiver.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
+            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, ActivityRecognition.MY_PERMISSIONS_REQUEST_ACTIVITY_RECOGNITION);
             return false;
         }
         return true;
@@ -91,7 +92,7 @@ public class SecondRegisterPage extends AppCompatActivity {
 
     private boolean checkForLocationPermission() {
         if (ContextCompat.checkSelfPermission(SecondRegisterPage.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LocationService.MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
+            ActivityCompat.requestPermissions(SecondRegisterPage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_READ_FINE_LOCATION);
             return false;
         }
         return true;

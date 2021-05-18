@@ -1,6 +1,5 @@
 package com.univ.ubitrack;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +9,6 @@ import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.MissingFormatArgumentException;
-
-import static androidx.core.content.ContextCompat.startActivity;
 
 public class Notifications {
     private final Context context;
@@ -52,10 +46,10 @@ public class Notifications {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public int getNotifications() {
 //        Log.i(TAG, "Waiting for MyNotificationService");
-        MyNotificationService myNotificationService = MyNotificationService.get();
+        NotificationService notificationService = NotificationService.get();
 //        Log.i(TAG, "Active Notifications: [");
         int count = 0;
-        for (StatusBarNotification notification : myNotificationService.getActiveNotifications()) {
+        for (StatusBarNotification notification : notificationService.getActiveNotifications()) {
 //            Log.i(TAG, "    " + notification.getPackageName() + " / " + notification.getTag());
             count += 1;
         }

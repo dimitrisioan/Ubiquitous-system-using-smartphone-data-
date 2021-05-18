@@ -39,7 +39,7 @@
         </activity>
 
         <service
-            android:name=".MyNotificationService"
+            android:name=".NotificationService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
@@ -52,7 +52,7 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".TransitionReceiver"
+        <receiver android:name=".ActivityRecognition"
             android:permission="android.permission.ACTIVITY_RECOGNITION" />
 
         <receiver android:name=".AEScreenOnOffReceiver" />

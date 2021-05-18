@@ -10,14 +10,14 @@ import androidx.annotation.RequiresApi;
 import java.util.concurrent.Semaphore;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class MyNotificationService extends NotificationListenerService {
-    private static final String TAG = "MyNotificationService";
-    static MyNotificationService _this;
+public class NotificationService extends NotificationListenerService {
+    private static final String TAG = "NotificationService";
+    static NotificationService _this;
     static Semaphore sem = new Semaphore(0);
 
-    public static MyNotificationService get() {
+    public static NotificationService get() {
         sem.acquireUninterruptibly();
-        MyNotificationService ret = _this;
+        NotificationService ret = _this;
         sem.release();
         return ret;
     }
