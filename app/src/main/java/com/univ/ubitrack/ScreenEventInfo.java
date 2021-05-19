@@ -53,11 +53,22 @@ public class ScreenEventInfo {
     String[] keys = new String[]{"AIzaSyCuludz6FCrxBJMCRdFQ66DodFYEOq5ymk", "AIzaSyD14w7Mw15hohCdbOyc26kdJzozAPPeIaA"};
     Random random = new Random();
 
+
+
+    public void onSuccess(){
+        Log.i("Callback", "Hello");
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public ScreenEventInfo(Context context, PowerManager powerManager, int display_state) {
         this.display_state = display_state;
         this.context = context;
         this.powerManager = powerManager;
+        this.network_type = NetworkService.getNetworkType();
+        Log.i("TYPE", String.valueOf(network_type.equals("TRANSPORT_WIFI")));
+        if (network_type.equals("TRANSPORT_WIFI")) {
+            ThingsBoard.obtainThingsBoardToken();
+        }
         battery = new Battery(context);
         notifications = new Notifications(context);
         this.system_time = getCurrentTime();
@@ -88,8 +99,7 @@ public class ScreenEventInfo {
         this.battery_status = battery.getBatteryStatus();
         this.device_interactive = getDeviceInteractive();
         this.notifs_active = notifications.getNotificationCount();
-        this.network_type = NetworkService.getNetworkType();
-        if (NetworkService.isNetworkAvailable()) {
+        if (network_type.equals("TRANSPORT_WIFI")) {
             ThingsBoard.addDeviceTelemetry(device_interactive, display_state, system_time, activity,
                     activity_conf, location_type, location_id, location_conf, battery_level,
                     battery_status, network_type, notifs_active);
@@ -103,8 +113,11 @@ public class ScreenEventInfo {
         Constants.LAST_LOCATION_ID = this.location_id;
         Constants.LAST_LOCATION_CONF = this.location_conf;
         addUsersDataToDB();
-        if (NetworkService.isNetworkAvailable()) {
+        if (network_type.equals("TRANSPORT_WIFI")) {
             addRemainingData();
+        }
+        if (network_type.equals("TRANSPORT_WIFI")) {
+            ThingsBoard.logOut();
         }
     }
 

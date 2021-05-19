@@ -49,7 +49,7 @@ public class ThingsBoard {
     }
 
 
-    private static void obtainThingsBoardToken() {
+    public static void obtainThingsBoardToken() {
         String loginURL = baseURL + "api/auth/login";
 
         JSONObject jsonBody = new JSONObject();
@@ -192,7 +192,7 @@ public class ThingsBoard {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
                         if (error.networkResponse.statusCode == 401){
-                            refreshToken();
+
                         }
                     }
                 }) {
@@ -243,7 +243,7 @@ public class ThingsBoard {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
                         if (error.networkResponse.statusCode == 401){
-                            refreshToken();
+
                         }
                     }
                 }) {
@@ -290,7 +290,7 @@ public class ThingsBoard {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
                         if (error.networkResponse.statusCode == 401){
-                            refreshToken();
+
                         }
                     }
                 }) {
@@ -341,7 +341,7 @@ public class ThingsBoard {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
                         if (error.networkResponse.statusCode == 401){
-                            refreshToken();
+
                         }
                     }
                 }) {
@@ -393,7 +393,7 @@ public class ThingsBoard {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
                         if (error.networkResponse.statusCode == 401){
-                            refreshToken();
+
                         }
                     }
                 }) {
@@ -447,7 +447,7 @@ public class ThingsBoard {
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
                         try {
                             if (error.networkResponse.statusCode == 401){
-                                refreshToken();
+
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -475,25 +475,17 @@ public class ThingsBoard {
         VolleyController.getInstance(context).addToQueue(jsonObjReq);
     }
 
-    public static void refreshToken() {
+    public static void logOut() {
         String refreshTokenURL = baseURL + "api/auth/logout";
-        String refreshToken = sharedPreferences.getString("REFRESH_TOKEN_KEY", "No key");
 
         JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("refreshToken", refreshToken);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         String auth = sharedPreferences.getString("AUTH_TOKEN_KEY", "No key");
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, refreshTokenURL , jsonBody,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        if (MainActivity.debugging == 1)
-                            Log.i("DEVICE", response.toString());
-                        obtainThingsBoardToken();
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -501,7 +493,6 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         Toast.makeText(context, "Connection to ThingsBoard Failed", Toast.LENGTH_SHORT).show();
-                        obtainThingsBoardToken();
                     }
                 }) {
             @Override
@@ -570,7 +561,7 @@ public class ThingsBoard {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
                         if (error.networkResponse.statusCode == 401){
-                            refreshToken();
+
                         }
                     }
                 }) {

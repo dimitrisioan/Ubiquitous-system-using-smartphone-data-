@@ -21,8 +21,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import static com.univ.ubitrack.Utilities.getLastSevenDays;
-
 public class MainActivity extends AppCompatActivity {
     ThingsBoard thingsBoard;
     public static int isPhoneRegistered = -1;
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isPhoneRegistered == 1) {
             applicationFragments();
-            getLastSevenDays();
+
             startAEScreenOnOffService();
             mActivityRecognitionClient = com.google.android.gms.location.ActivityRecognition.getClient(MainActivity.this);
             requestUpdatesHandler();
